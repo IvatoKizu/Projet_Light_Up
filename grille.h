@@ -1,8 +1,8 @@
 #ifndef _GRILLE_H_
 #define _GRILLE_H_
 
-#include <stdio.h>
-#include <stdlib.h>
+#include<stdio.h>
+#include<stdlib.h>
 
 /* Format des fichiers grille : 
 1 longueur
