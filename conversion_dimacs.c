@@ -316,11 +316,16 @@ void ecriture_fich(FILE *f,Grille G){
 }
 
 
-void lecture_fich(FILE *f, Grille G){
+int lecture_fich(FILE *f, Grille G){
 
     int i,j,l,h,eclaire,lampe,mur,fin;
     l = G.l;
     h = G.h;
+
+    fscanf(f,"UNSAT\n");
+    if(feof(f)){
+        return 1;
+    }
 
     fscanf(f,"SAT\n");
 
@@ -334,14 +339,14 @@ void lecture_fich(FILE *f, Grille G){
 
             if(eclaire == 0 || lampe == 0 || mur == 0){
                 printf("ERREUR, on vient de lire un 0 dans le fichier solution du SAT solver, cela veut donc dire que l'on ne cree pas toutes les variables\n");
-                    return;
+                    return 2;
             }
 
-            if(G.tab[i][j] == MUR || G.tab[i][j] == MUR_0 || G.tab[i][j] == MUR_1 || G.tab[i][j] == MUR_2 || G.tab[i][j] == MUR_3 || G.tab[i][j] == MUR_4){
+            else if(G.tab[i][j] == MUR || G.tab[i][j] == MUR_0 || G.tab[i][j] == MUR_1 || G.tab[i][j] == MUR_2 || G.tab[i][j] == MUR_3 || G.tab[i][j] == MUR_4){
 
                 if(mur < 0 ){
                     printf("ERREUR, le SAT solver a decide que la case %d,%d n'est pas un mur, alors qu'il en est un sur la grille d'origine.\n",i,j);
-                    return;
+                    return 2;
                 }
 
             }
@@ -351,13 +356,13 @@ void lecture_fich(FILE *f, Grille G){
             else if(eclaire > 0){
                 if(mur > 0){
                     printf("ERREUR, le SAT solver a decide que la case %d,%d est un mur, alors qu'il n'en est pas un sur la grille d'origine.\n",i,j);
-                    return;
+                    return 2;
                 }
                 G.tab[i][j] = ECLAIRE;
             }
             else{
-                printf("ERREUR, on ne devrait pas arriver ici\n");
-                return;
+                printf("ERREUR, on ne devrait pas arriver ici\nVoici les valeurs de eclairee : %d\nlampe : %d\nmur : %d\n",eclaire,lampe,mur);
+                return 2;
             }
 
             
@@ -367,6 +372,8 @@ void lecture_fich(FILE *f, Grille G){
     fscanf(f,"%d",&fin);
     if(fin != 0){
         printf("ERREUR, le dernier caractère que l'on a lu n'est pas 0, on a cree trop de variable dans le fichier Dimacs.\n");
+        return 2;
     }
 
+    return 0;
 }

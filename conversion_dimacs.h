@@ -18,6 +18,6 @@ void gestion_cond_MUR4(int i,int j,int l,int h,FILE *f);
 
 void ecriture_fich(FILE *f, Grille G);
 
-void lecture_fich(FILE *f, Grille G);
+int lecture_fich(FILE *f, Grille G); // Retourne 0 si satisfaisable 1 sinon
 
 #endif
