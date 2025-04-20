@@ -1,8 +1,8 @@
 #ifndef _GRILLE_H_
 #define _GRILLE_H_
 
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 /* Format des fichiers grille : 
 1 longueur
@@ -30,7 +30,7 @@ typedef struct {
 
 } Grille;
 
-//Grille init_Grille();
+Grille init_Grille(int longueur, int hauteur);
 
 Grille lire_Grille(FILE *f);
 

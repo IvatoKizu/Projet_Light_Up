@@ -1,5 +1,24 @@
 #include "grille.h"
 
+Grille init_Grille(int longueur, int hauteur){
+
+    Grille G;
+
+    G.l = longueur;
+    G.h = hauteur;
+
+    G.tab = malloc(sizeof(Case*) * hauteur);
+
+    for(int i = 0; i<hauteur;i++){
+
+        G.tab[i] = malloc(sizeof(Case) * longueur);
+
+    }
+
+    return G;
+
+}
+
 Grille lire_Grille(FILE *f){
 
     int l,h,i,j;
@@ -9,16 +28,7 @@ Grille lire_Grille(FILE *f){
     fscanf(f,"%d\n",&l);
     fscanf(f,"%d\n",&h);
 
-    G.l = l;
-    G.h = h;
-
-    G.tab = malloc(sizeof(Case*) * h);
-
-    for(i = 0; i<h;i++){
-
-        G.tab[i] = malloc(sizeof(Case) * l);
-
-    }
+    G = init_Grille(l,h);
 
     for(i = 0;i<h;i++){
 

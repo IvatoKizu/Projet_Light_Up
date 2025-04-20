@@ -16,6 +16,8 @@ void gestion_cond_MUR3(int i,int j,int l,int h,FILE *f);
 
 void gestion_cond_MUR4(int i,int j,int l,int h,FILE *f);
 
-void ecriture_fich(FILE *f,Grille G);
+void ecriture_fich(FILE *f, Grille G);
+
+void lecture_fich(FILE *f, Grille G);
 
 #endif
