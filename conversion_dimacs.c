@@ -1,21 +1,16 @@
 #include"conversion_dimacs.h"
 
 /* Formules pour trouver la variable dimacs à partir des coordonnées i,j :
-    i * nb_de_lignes * 8 + j * 8 + nb_variable = (i*nb_lignes + j)*8 + nb_variable
+    i * nb_de_lignes * 3 + j * 3 + nb_variable = (i*nb_lignes + j)*3 + nb_variable
     avec nb_variable =
     1 pour Ei,j
     2 pour Li,j
     3 pour Mi,j
-    4 pour M0i,j
-    5 pour M1i,j
-    6 pour M2i,j
-    7 pour M3i,j
-    8 pour M4i,j
     on peut donc utiliser les valeurs du type énuméré Case
-    Ne pas utiliser la valeur libre!!
+    Ne pas utiliser les valeurs libre, mur_0, mur_1, mur_2, mur_3 et mur_4!!
     */
-int nom_variable_dimacs(int i ,int j ,int l,Case nb_variable){
-    return (i*l + j)*8 + nb_variable;
+int nom_variable_dimacs(int i, int j, int l, Case nb_variable){
+    return (i*l + j)*3 + nb_variable;
 }
 
 void gestion_cond_MUR0(int i,int j,int l,int h,FILE *f){
@@ -251,7 +246,7 @@ void gestion_cond_MUR4(int i,int j,int l,int h,FILE *f){
 void ecriture_fich(FILE *f,Grille G){
 
     int i,j,l,h;
-    int n_eclaire_ij,n_lampe_ij,n_mur_ij,n_mur_0_ij,n_mur_1_ij,n_mur_2_ij,n_mur_3_ij,n_mur_4_ij;
+    int n_eclaire_ij,n_lampe_ij,n_mur_ij;
     l = G.l;
     h = G.h;
 
@@ -263,11 +258,6 @@ void ecriture_fich(FILE *f,Grille G){
             n_eclaire_ij=nom_variable_dimacs(i,j,l,ECLAIRE);
             n_lampe_ij=nom_variable_dimacs(i,j,l,LAMPE);
             n_mur_ij=nom_variable_dimacs(i,j,l,MUR);
-            n_mur_0_ij=nom_variable_dimacs(i,j,l,MUR_0);
-            n_mur_1_ij=nom_variable_dimacs(i,j,l,MUR_1);
-            n_mur_2_ij=nom_variable_dimacs(i,j,l,MUR_2);
-            n_mur_3_ij=nom_variable_dimacs(i,j,l,MUR_3);
-            n_mur_4_ij=nom_variable_dimacs(i,j,l,MUR_4);
             fprintf(f,"-%d -%d 0\n",n_lampe_ij,n_mur_ij);
             fprintf(f,"%d %d 0\n",n_eclaire_ij,n_mur_ij);
             switch(G.tab[i][j]){
@@ -275,21 +265,11 @@ void ecriture_fich(FILE *f,Grille G){
                 case MUR:
                 //fixations des valeurs des variables sur les murs
                 fprintf(f,"%d 0\n",n_mur_ij);
-                fprintf(f,"-%d 0\n",n_mur_0_ij);
-                fprintf(f,"-%d 0\n",n_mur_1_ij);
-                fprintf(f,"-%d 0\n",n_mur_2_ij);
-                fprintf(f,"-%d 0\n",n_mur_3_ij);
-                fprintf(f,"-%d 0\n",n_mur_4_ij);
                 break;
 
                 case MUR_0:
                 //fixations des valeurs des variables sur les murs
                 fprintf(f,"%d 0\n",n_mur_ij);
-                fprintf(f,"%d 0\n",n_mur_0_ij);
-                fprintf(f,"-%d 0\n",n_mur_1_ij);
-                fprintf(f,"-%d 0\n",n_mur_2_ij);
-                fprintf(f,"-%d 0\n",n_mur_3_ij);
-                fprintf(f,"-%d 0\n",n_mur_4_ij);
                 // Gestion des mur avec conditions
                 gestion_cond_MUR0(i,j,l,h,f);
                 break;
@@ -297,11 +277,6 @@ void ecriture_fich(FILE *f,Grille G){
                 case MUR_1:
                 //fixations des valeurs des variables sur les murs
                 fprintf(f,"%d 0\n",n_mur_ij);
-                fprintf(f,"-%d 0\n",n_mur_0_ij);
-                fprintf(f,"%d 0\n",n_mur_1_ij);
-                fprintf(f,"-%d 0\n",n_mur_2_ij);
-                fprintf(f,"-%d 0\n",n_mur_3_ij);
-                fprintf(f,"-%d 0\n",n_mur_4_ij);
                 // Gestion des mur avec conditions
                 gestion_cond_MUR1(i,j,l,h,f);
                 break;
@@ -309,11 +284,6 @@ void ecriture_fich(FILE *f,Grille G){
                 case MUR_2:
                 //fixations des valeurs des variables sur les murs
                 fprintf(f,"%d 0\n",n_mur_ij);
-                fprintf(f,"-%d 0\n",n_mur_0_ij);
-                fprintf(f,"-%d 0\n",n_mur_1_ij);
-                fprintf(f,"%d 0\n",n_mur_2_ij);
-                fprintf(f,"-%d 0\n",n_mur_3_ij);
-                fprintf(f,"-%d 0\n",n_mur_4_ij);
                 // Gestion des mur avec conditions
                 gestion_cond_MUR2(i,j,l,h,f);
                 break;
@@ -321,11 +291,6 @@ void ecriture_fich(FILE *f,Grille G){
                 case MUR_3:
                 //fixations des valeurs des variables sur les murs
                 fprintf(f,"%d 0\n",n_mur_ij);
-                fprintf(f,"-%d 0\n",n_mur_0_ij);
-                fprintf(f,"-%d 0\n",n_mur_1_ij);
-                fprintf(f,"-%d 0\n",n_mur_2_ij);
-                fprintf(f,"%d 0\n",n_mur_3_ij);
-                fprintf(f,"-%d 0\n",n_mur_4_ij);
                 // Gestion des mur avec conditions
                 gestion_cond_MUR3(i,j,l,h,f);
                 break;
@@ -333,29 +298,75 @@ void ecriture_fich(FILE *f,Grille G){
                 case MUR_4:
                 //fixations des valeurs des variables sur les murs
                 fprintf(f,"%d 0\n",n_mur_ij);
-                fprintf(f,"-%d 0\n",n_mur_0_ij);
-                fprintf(f,"-%d 0\n",n_mur_1_ij);
-                fprintf(f,"-%d 0\n",n_mur_2_ij);
-                fprintf(f,"-%d 0\n",n_mur_3_ij);
-                fprintf(f,"%d 0\n",n_mur_4_ij);
                 // Gestion des mur avec conditions
                 gestion_cond_MUR4(i,j,l,h,f);
                 break;
 
-                case default:
+                default:
                 //fixations des valeurs des variables sur les murs
                 fprintf(f,"-%d 0\n",n_mur_ij);
-                fprintf(f,"-%d 0\n",n_mur_0_ij);
-                fprintf(f,"-%d 0\n",n_mur_1_ij);
-                fprintf(f,"-%d 0\n",n_mur_2_ij);
-                fprintf(f,"-%d 0\n",n_mur_3_ij);
-                fprintf(f,"-%d 0\n",n_mur_4_ij);
                 break;
 
             }
             
         }
 
+    }
+
+}
+
+
+void lecture_fich(FILE *f, Grille G){
+
+    int i,j,l,h,eclaire,lampe,mur,fin;
+    l = G.l;
+    h = G.h;
+
+    fscanf(f,"SAT\n");
+
+    for(i = 0;i<h;i++){
+
+        for(j = 0;j<l;j++){
+
+            fscanf(f,"%d ",&eclaire);
+            fscanf(f,"%d ",&lampe);
+            fscanf(f,"%d ",&mur);
+
+            if(eclaire == 0 || lampe == 0 || mur == 0){
+                printf("ERREUR, on vient de lire un 0 dans le fichier solution du SAT solver, cela veut donc dire que l'on ne cree pas toutes les variables\n");
+                    return;
+            }
+
+            if(G.tab[i][j] == MUR || G.tab[i][j] == MUR_0 || G.tab[i][j] == MUR_1 || G.tab[i][j] == MUR_2 || G.tab[i][j] == MUR_3 || G.tab[i][j] == MUR_4){
+
+                if(mur < 0 ){
+                    printf("ERREUR, le SAT solver a decide que la case %d,%d n'est pas un mur, alors qu'il en est un sur la grille d'origine.\n",i,j);
+                    return;
+                }
+
+            }
+            else if(lampe > 0){
+                G.tab[i][j] = LAMPE;
+            }
+            else if(eclaire > 0){
+                if(mur > 0){
+                    printf("ERREUR, le SAT solver a decide que la case %d,%d est un mur, alors qu'il n'en est pas un sur la grille d'origine.\n",i,j);
+                    return;
+                }
+                G.tab[i][j] = ECLAIRE;
+            }
+            else{
+                printf("ERREUR, on ne devrait pas arriver ici\n");
+                return;
+            }
+
+            
+        }
+
+    }
+    fscanf(f,"%d",&fin);
+    if(fin != 0){
+        printf("ERREUR, le dernier caractère que l'on a lu n'est pas 0, on a cree trop de variable dans le fichier Dimacs.\n");
     }
 
 }
