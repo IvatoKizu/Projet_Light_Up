@@ -24,7 +24,7 @@ mettre un retour à la ligne à la fin du fichier
 typedef enum {LIBRE,ECLAIRE,LAMPE,MUR,MUR_0,MUR_1,MUR_2,MUR_3,MUR_4} Case;
 
 typedef struct {
-
+    
     int l,h;
     Case **tab;
 

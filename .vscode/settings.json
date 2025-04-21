@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "conversion_dimacs.h": "c"
+        "conversion_dimacs.h": "c",
+        "grille.h": "c"
     }
 }

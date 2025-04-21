@@ -86,6 +86,7 @@ Grille lire_Grille(FILE *f){
     return G;
 
 }
+
 Grille ajouter_lampe(Grille G, int x, int y){
     int i, hauteur, largeur;
     largeur = G.l;

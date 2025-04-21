@@ -2,28 +2,39 @@
 #include "grille.h"
 #include "conversion_dimacs.h"
 
-Grille start(){
-    int largeur, hauteur;
+Grille jouer_coup(Grille G){
+    int x, y; 
+    Case **tab = G.tab;
+    printf("Quelle case souhaitez-vous jouer? \n");
+    scanf("%d %d",&x,&y);
 
-    printf("Création de votre grille\n");
-    printf("Combien de ligne souhaitez-vous? ");
-    scanf("%d",&largeur);
-
-    printf("\nCombien de colonnes souhaitez-vous? ");
-    scanf("%d",&hauteur);
-    printf("\n");
-
-    return init_Grille(hauteur,largeur);
+    if((x))
 }
 
 
-int main(int argc,char* argv[]){
-    Grille grille = start();
+int main(int argc, char* argv[]){
+    FILE *f;
+    if(argc!=2){
+
+        printf("Exemple d'utilisation : ./test_grille <fichier_grille>\n");
+        return 1;
+    }
+
+
+    f = fopen(argv[1],"r");
+    if(f == NULL){
+
+        printf("ERREUR : Fichier non existant\n");
+        return 1;
+    }
+    printf("\nBienvenue dans le jeu Light Up\n\n");
+    Grille grille = lire_Grille(f);
+    printf("Vous jouez avec la grille suivante : \n");
+
     afficher_Grille(grille);
+    int joue = 1;
 
-    printf("test\n");
-
-    grille = ajouter_lampe(grille, 3, 3);
-
-    afficher_Grille(grille);
+    While(joue){
+        
+    }
 }
