@@ -13,23 +13,24 @@ int nom_variable_dimacs(int i, int j, int l, Case nb_variable){
     return (i*l + j)*3 + nb_variable;
 }
 
-void gestion_cond_MUR0(int i,int j,int l,int h,FILE *f){
-
+int gestion_cond_MUR0(int i,int j,int l,int h,FILE *f){
     if(i == 0){
 
         if(j == 0){
             fprintf(f,"-%d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE));
             fprintf(f,"-%d 0\n",nom_variable_dimacs(i,j+1,l,LAMPE));
+            return 2;
         }
         else if(j == l-1){
             fprintf(f,"-%d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE));
             fprintf(f,"-%d 0\n",nom_variable_dimacs(i,j-1,l,LAMPE));
-
+            return 2;
         }
         else{
             fprintf(f,"-%d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE));
             fprintf(f,"-%d 0\n",nom_variable_dimacs(i,j-1,l,LAMPE));
             fprintf(f,"-%d 0\n",nom_variable_dimacs(i,j+1,l,LAMPE));
+            return 3;
         }
 
     }
@@ -38,55 +39,64 @@ void gestion_cond_MUR0(int i,int j,int l,int h,FILE *f){
         if(j == 0){
             fprintf(f,"-%d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE));
             fprintf(f,"-%d 0\n",nom_variable_dimacs(i,j+1,l,LAMPE));
+            return 2;
         }
         else if(j == l-1){
             fprintf(f,"-%d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE));
             fprintf(f,"-%d 0\n",nom_variable_dimacs(i,j-1,l,LAMPE));
-
+            return 2;
         }
         else{
             fprintf(f,"-%d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE));
             fprintf(f,"-%d 0\n",nom_variable_dimacs(i,j-1,l,LAMPE));
             fprintf(f,"-%d 0\n",nom_variable_dimacs(i,j+1,l,LAMPE));
+            return 3;
         }
 
     }
     else if(j == 0){ //ici i != 0 et i != h-1
         fprintf(f,"-%d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE));
         fprintf(f,"-%d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE));
-        fprintf(f,"-%d 0\n",nom_variable_dimacs(i,j+1,l,LAMPE));    }
+        fprintf(f,"-%d 0\n",nom_variable_dimacs(i,j+1,l,LAMPE));
+        return 3;    
+    }
     else if(j == l-1){ //ici aussi i != 0 et i != h-1
         fprintf(f,"-%d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE));
         fprintf(f,"-%d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE));
         fprintf(f,"-%d 0\n",nom_variable_dimacs(i,j-1,l,LAMPE));
+        return 3;
     }
     else{
         fprintf(f,"-%d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE));
         fprintf(f,"-%d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE));
         fprintf(f,"-%d 0\n",nom_variable_dimacs(i,j-1,l,LAMPE));
         fprintf(f,"-%d 0\n",nom_variable_dimacs(i,j+1,l,LAMPE));
+        return 4;
     }
 
 
 }
 
-void gestion_cond_MUR1(int i,int j,int l,int h,FILE *f){
+int gestion_cond_MUR1(int i,int j,int l,int h,FILE *f){
 
     if(i == 0){
 
         if(j == 0){
             fprintf(f,"%d %d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
             fprintf(f,"-%d -%d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
+            return 2;
         }
         else if(j == l-1){
             fprintf(f,"%d %d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE),nom_variable_dimacs(i,j-1,l,LAMPE));
             fprintf(f,"-%d -%d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE),nom_variable_dimacs(i,j-1,l,LAMPE));
+            return 2;
         }
         else{
             fprintf(f,"%d %d %d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE),nom_variable_dimacs(i,j-1,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
             fprintf(f,"-%d -%d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE),nom_variable_dimacs(i,j-1,l,LAMPE));
             fprintf(f,"-%d -%d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
             fprintf(f,"-%d -%d 0\n",nom_variable_dimacs(i,j-1,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
+            return 4;
         }
 
     }
@@ -95,17 +105,19 @@ void gestion_cond_MUR1(int i,int j,int l,int h,FILE *f){
         if(j == 0){
             fprintf(f,"%d %d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
             fprintf(f,"-%d -%d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
+            return 2;
         }
         else if(j == l-1){
             fprintf(f,"%d %d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE),nom_variable_dimacs(i,j-1,l,LAMPE));
             fprintf(f,"-%d -%d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE),nom_variable_dimacs(i,j-1,l,LAMPE));
-
+            return 2;
         }
         else{
             fprintf(f,"-%d -%d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE),nom_variable_dimacs(i,j-1,l,LAMPE));
             fprintf(f,"-%d -%d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
             fprintf(f,"%d %d %d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE),nom_variable_dimacs(i,j-1,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
             fprintf(f,"-%d -%d 0\n",nom_variable_dimacs(i,j-1,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
+            return 4;
         }
 
     }
@@ -114,12 +126,14 @@ void gestion_cond_MUR1(int i,int j,int l,int h,FILE *f){
         fprintf(f,"-%d -%d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
         fprintf(f,"%d %d %d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE),nom_variable_dimacs(i+1,j,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
         fprintf(f,"-%d -%d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
+        return 4;
     }
     else if(j == l-1){ //ici aussi i != 0 et i != h-1
         fprintf(f,"-%d -%d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE),nom_variable_dimacs(i+1,j,l,LAMPE));
         fprintf(f,"-%d -%d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE),nom_variable_dimacs(i,j-1,l,LAMPE));
         fprintf(f,"%d %d %d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE),nom_variable_dimacs(i+1,j,l,LAMPE),nom_variable_dimacs(i,j-1,l,LAMPE));
         fprintf(f,"-%d -%d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE),nom_variable_dimacs(i,j-1,l,LAMPE));
+        return 4;
     }
     else{
         fprintf(f,"-%d -%d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE),nom_variable_dimacs(i+1,j,l,LAMPE));
@@ -129,28 +143,32 @@ void gestion_cond_MUR1(int i,int j,int l,int h,FILE *f){
         fprintf(f,"-%d -%d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE),nom_variable_dimacs(i,j-1,l,LAMPE));
         fprintf(f,"-%d -%d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
         fprintf(f,"-%d -%d 0\n",nom_variable_dimacs(i,j-1,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
+        return 7; 
     }
 
 
 }
 
-void gestion_cond_MUR2(int i,int j,int l,int h,FILE *f){
+int gestion_cond_MUR2(int i,int j,int l,int h,FILE *f){
 
     if(i == 0){
 
         if(j == 0){
             fprintf(f,"%d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE));
             fprintf(f,"%d 0\n",nom_variable_dimacs(i,j+1,l,LAMPE));
+            return 2;
         }
         else if(j == l-1){
             fprintf(f,"%d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE));
             fprintf(f,"%d 0\n",nom_variable_dimacs(i,j-1,l,LAMPE));
+            return 2;
         }
         else{
             fprintf(f,"%d %d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE),nom_variable_dimacs(i,j-1,l,LAMPE));
             fprintf(f,"%d %d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
             fprintf(f,"%d %d 0\n",nom_variable_dimacs(i,j-1,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
             fprintf(f,"-%d -%d -%d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE),nom_variable_dimacs(i,j-1,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
+            return 4;
         }
 
     }
@@ -159,16 +177,19 @@ void gestion_cond_MUR2(int i,int j,int l,int h,FILE *f){
         if(j == 0){
             fprintf(f,"%d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE));
             fprintf(f,"%d 0\n",nom_variable_dimacs(i,j+1,l,LAMPE));
+            return 2;
         }
         else if(j == l-1){
             fprintf(f,"%d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE));
             fprintf(f,"%d 0\n",nom_variable_dimacs(i,j-1,l,LAMPE));
+            return 2;
         }
         else{
             fprintf(f,"-%d -%d -%d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE),nom_variable_dimacs(i,j-1,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
             fprintf(f,"%d %d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE),nom_variable_dimacs(i,j-1,l,LAMPE));
             fprintf(f,"%d %d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
             fprintf(f,"%d %d 0\n",nom_variable_dimacs(i,j-1,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
+            return 4;
         }
 
     }
@@ -177,12 +198,14 @@ void gestion_cond_MUR2(int i,int j,int l,int h,FILE *f){
         fprintf(f,"%d %d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE),nom_variable_dimacs(i+1,j,l,LAMPE));
         fprintf(f,"%d %d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
         fprintf(f,"%d %d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
+        return 4;
     }
     else if(j == l-1){ //ici aussi i != 0 et i != h-1
         fprintf(f,"-%d -%d -%d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE),nom_variable_dimacs(i+1,j,l,LAMPE),nom_variable_dimacs(i,j-1,l,LAMPE));
         fprintf(f,"%d %d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE),nom_variable_dimacs(i,j-1,l,LAMPE));
         fprintf(f,"%d %d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE),nom_variable_dimacs(i+1,j,l,LAMPE));
         fprintf(f,"%d %d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE),nom_variable_dimacs(i,j-1,l,LAMPE));
+        return 4;
     }
     else{
         fprintf(f,"-%d -%d -%d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE),nom_variable_dimacs(i+1,j,l,LAMPE),nom_variable_dimacs(i,j-1,l,LAMPE));
@@ -192,34 +215,38 @@ void gestion_cond_MUR2(int i,int j,int l,int h,FILE *f){
         fprintf(f,"%d %d %d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE),nom_variable_dimacs(i+1,j,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
         fprintf(f,"%d %d %d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE),nom_variable_dimacs(i,j-1,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
         fprintf(f,"-%d -%d -%d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE),nom_variable_dimacs(i,j-1,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
+        return 7;
     }
 
 
 }
 
-void gestion_cond_MUR3(int i,int j,int l,int h,FILE *f){
+int gestion_cond_MUR3(int i,int j,int l,int h,FILE *f){
 
     if(i == 0){
         fprintf(f,"%d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE));
         fprintf(f,"%d 0\n",nom_variable_dimacs(i,j-1,l,LAMPE));
         fprintf(f,"%d 0\n",nom_variable_dimacs(i,j+1,l,LAMPE));
+        return 3;
     }
     else if(i == h-1){
 
         fprintf(f,"%d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE));
         fprintf(f,"%d 0\n",nom_variable_dimacs(i,j-1,l,LAMPE));
         fprintf(f,"%d 0\n",nom_variable_dimacs(i,j+1,l,LAMPE));
-
+        return 3;
     }
     else if(j == 0){ //ici i != 0 et i != h-1
         fprintf(f,"%d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE));
         fprintf(f,"%d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE));
         fprintf(f,"%d 0\n",nom_variable_dimacs(i,j+1,l,LAMPE));
+        return 3;
     }
     else if(j == l-1){ //ici aussi i != 0 et i != h-1
         fprintf(f,"%d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE));
         fprintf(f,"%d 0\n",nom_variable_dimacs(i,j-1,l,LAMPE));
         fprintf(f,"%d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE));
+        return 3;
     }
     else{
         fprintf(f,"-%d -%d -%d -%d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE),nom_variable_dimacs(i+1,j,l,LAMPE),nom_variable_dimacs(i,j-1,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
@@ -229,60 +256,68 @@ void gestion_cond_MUR3(int i,int j,int l,int h,FILE *f){
         fprintf(f,"%d %d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE),nom_variable_dimacs(i,j-1,l,LAMPE));
         fprintf(f,"%d %d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
         fprintf(f,"%d %d 0\n",nom_variable_dimacs(i,j-1,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
+        return 7;
     }
 
 
 }
 
-void gestion_cond_MUR4(int i,int j,int l,int h,FILE *f){
+int gestion_cond_MUR4(int i,int j,int l,int h,FILE *f){
 
     fprintf(f,"%d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE));
     fprintf(f,"%d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE));
     fprintf(f,"%d 0\n",nom_variable_dimacs(i,j-1,l,LAMPE));
     fprintf(f,"%d 0\n",nom_variable_dimacs(i,j+1,l,LAMPE));
+    return 4;
     
 }
 
-void gestion_cond_lampe(int i,int j,Grille G, FILE *f){
-    int l,h,k,n_variable_lampe_ij;
+int gestion_cond_lampe(int i,int j,Grille G, FILE *f){
+    int l,h,k,n_variable_lampe_ij,cpt;
     l=G.l;
     h=G.h;
     n_variable_lampe_ij=nom_variable_dimacs(i,j,l,LAMPE);
     fprintf(f,"%d -%d 0\n",nom_variable_dimacs(i,j,l,ECLAIRE),n_variable_lampe_ij);
+    cpt=1;
     k=i-1;
     while (k>=0 && !est_mur(G,k,j)){
         fprintf(f,"-%d -%d 0\n",n_variable_lampe_ij,nom_variable_dimacs(k,j,l,LAMPE));
         fprintf(f,"%d -%d 0\n",nom_variable_dimacs(k,j,l,ECLAIRE),n_variable_lampe_ij);
+        cpt+=2;
         k--;
     }
     k=j-1;
     while (k>=0 && !est_mur(G,i,k)){
         fprintf(f,"-%d -%d 0\n",n_variable_lampe_ij,nom_variable_dimacs(i,k,l,LAMPE));
         fprintf(f,"%d -%d 0\n",nom_variable_dimacs(i,k,l,ECLAIRE),n_variable_lampe_ij);
+        cpt+=2;
         k--;
     }
     k=j+1;
     while (k<l && !est_mur(G,i,k)){
         fprintf(f,"-%d -%d 0\n",n_variable_lampe_ij,nom_variable_dimacs(i,k,l,LAMPE));
         fprintf(f,"%d -%d 0\n",nom_variable_dimacs(i,k,l,ECLAIRE),n_variable_lampe_ij);
+        cpt+=2;
         k++;
     }
     k=i+1;
     while (k<h && !est_mur(G,k,j)){
         fprintf(f,"-%d -%d 0\n",n_variable_lampe_ij,nom_variable_dimacs(k,j,l,LAMPE));
         fprintf(f,"%d -%d 0\n",nom_variable_dimacs(k,j,l,ECLAIRE),n_variable_lampe_ij);
+        cpt+=2;
         k++;
     }
+    return cpt;
 }
 
-void ecriture_fich(FILE *f,Grille G){
+int ecriture_condition(FILE *f,Grille G){
 
-    int i,j,l,h;
+    int i,j,l,h,cpt;
     int n_eclaire_ij,n_lampe_ij,n_mur_ij;
     l = G.l;
     h = G.h;
-
-    
+    //cpt est un compteur du nombre de clauses totale dans le fichier
+    cpt = 0;
 
     for(i = 0;i<h;i++){
 
@@ -294,52 +329,61 @@ void ecriture_fich(FILE *f,Grille G){
             fprintf(f,"-%d -%d 0\n",n_lampe_ij,n_mur_ij);
             //condition de victoire (toutes les cases sont éclairées sauf les murs)
             fprintf(f,"%d %d 0\n",n_eclaire_ij,n_mur_ij);
+            cpt+=2;
             switch(G.tab[i][j]){
 
                 case MUR:
                 //fixations des valeurs des variables sur les murs
                 fprintf(f,"%d 0\n",n_mur_ij);
+                cpt++;
                 break;
 
                 case MUR_0:
                 //fixations des valeurs des variables sur les murs
                 fprintf(f,"%d 0\n",n_mur_ij);
+                cpt++;
                 // Gestion des mur avec conditions
-                gestion_cond_MUR0(i,j,l,h,f);
+                cpt+=gestion_cond_MUR0(i,j,l,h,f);
                 break;
 
                 case MUR_1:
                 //fixations des valeurs des variables sur les murs
                 fprintf(f,"%d 0\n",n_mur_ij);
+                cpt++;
                 // Gestion des mur avec conditions
-                gestion_cond_MUR1(i,j,l,h,f);
+                cpt+=gestion_cond_MUR1(i,j,l,h,f);
                 break;
 
                 case MUR_2:
                 //fixations des valeurs des variables sur les murs
                 fprintf(f,"%d 0\n",n_mur_ij);
+                cpt++;
                 // Gestion des mur avec conditions
-                gestion_cond_MUR2(i,j,l,h,f);
+                cpt+=gestion_cond_MUR2(i,j,l,h,f);
                 break;
 
                 case MUR_3:
                 //fixations des valeurs des variables sur les murs
                 fprintf(f,"%d 0\n",n_mur_ij);
+                cpt++;
                 // Gestion des mur avec conditions
-                gestion_cond_MUR3(i,j,l,h,f);
+                cpt+=gestion_cond_MUR3(i,j,l,h,f);
                 break;
 
                 case MUR_4:
                 //fixations des valeurs des variables sur les murs
                 fprintf(f,"%d 0\n",n_mur_ij);
+                cpt++;
                 // Gestion des mur avec conditions
-                gestion_cond_MUR4(i,j,l,h,f);
+                cpt+=gestion_cond_MUR4(i,j,l,h,f);
                 break;
 
                 default:
                 //fixations des valeurs des variables sur les murs
                 fprintf(f,"-%d 0\n",n_mur_ij);
-                gestion_cond_lampe(i,j,G,f);
+                cpt++;
+                // Gestion des condition sur la presence d'une lampe
+                cpt+=gestion_cond_lampe(i,j,G,f);
                 break;
                 
             }
@@ -348,8 +392,28 @@ void ecriture_fich(FILE *f,Grille G){
 
     }
 
+    return cpt;
+
 }
 
+void ecriture_dimacs(FILE *f, Grille G){
+    int nb_clause;
+    char c;
+    FILE *tmp;
+    tmp=fopen("condition_tmp.txt","w");
+    nb_clause=ecriture_condition(tmp,G);
+    fclose(tmp);
+    fopen("condition_tmp.txt","r");
+    fprintf("p cnf %d %d",G.h*G.l*3,nb_clause);
+    while(!feof(tmp)){
+        fscanf(tmp,"%c",c);
+        fprintf(f,"%c",c);
+    }
+    fclose(f);
+    fclose(tmp);
+    remove(tmp);
+
+}
 
 int lecture_fich(FILE *f, Grille G){
 
