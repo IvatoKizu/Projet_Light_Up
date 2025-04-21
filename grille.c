@@ -86,7 +86,44 @@ Grille lire_Grille(FILE *f){
     return G;
 
 }
+Grille ajouter_lampe(Grille G, int x, int y){
+    int i, hauteur, largeur;
+    largeur = G.l;
+    hauteur = G.h;
+    Case **tab = G.tab;
+    if(est_mur(G, x, y)){
+        printf("Erreur de coordonné\n");
+        return G;
+    }
+    tab[x][y] = LAMPE;
 
+
+    int decalage_x[] = {-1,1,0,0};
+    int decalage_y[] = {0,0,-1,1};
+
+    for(i = 0; i < 4; i++){
+        int nouveau_x = x + decalage_x[i];
+        int nouveau_y = y + decalage_y[i];
+
+        while( (nouveau_x >= 0) && (nouveau_x < hauteur) && (nouveau_y >= 0) && (nouveau_y < largeur)){
+            Case c = tab[nouveau_x][nouveau_y];
+
+            if(est_mur(G, nouveau_x, nouveau_y)){
+                break;
+            }
+
+            if(c == LIBRE){
+                tab[nouveau_x][nouveau_y] = ECLAIRE;
+            }
+
+            nouveau_x += decalage_x[i];
+            nouveau_y += decalage_y[i];
+        }
+    }
+    
+    G.tab = tab;
+    return G;
+}
 
 void afficher_Grille(Grille G){
 

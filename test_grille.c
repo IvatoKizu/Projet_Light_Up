@@ -24,6 +24,12 @@ int main(int argc,char* argv[]){
 
     afficher_Grille(G);
 
+
+    printf("test d'ajout lampe\n");
+
+    G = ajouter_lampe(G, 1, 1);
+
+    afficher_Grille(G);
     return 1;
 
 }

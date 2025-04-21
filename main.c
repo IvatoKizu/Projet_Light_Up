@@ -7,4 +7,10 @@ int main(int argc,char* argv[]){
 
     grille = init_Grille(5,5);
     afficher_Grille(grille);
+
+    printf("test\n");
+
+    grille = ajouter_lampe(grille, 3, 3);
+
+    afficher_Grille(grille);
 }
