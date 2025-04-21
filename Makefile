@@ -1,6 +1,6 @@
 CC = clang -g -Wall
 
-EXECUTABLES = test_grille test_conversion
+EXECUTABLES = test_grille test_conversion main
 
 all : $(EXECUTABLES)
 
@@ -32,6 +32,14 @@ test_conversion.o : test_conversion.c grille.h conversion_dimacs.h
 	@echo "---------------------------------------------"
 	$(CC) -c $<
 
+
+main.o : main.c grille.h conversion_dimacs.h
+	@echo ""
+	@echo "---------------------------------------------"
+	@echo "Compilation du module main"
+	@echo "---------------------------------------------"
+	$(CC) -c $<
+
 test_grille : test_grille.o grille.o
 	@echo ""
 	@echo "---------------------------------------------"
@@ -40,6 +48,13 @@ test_grille : test_grille.o grille.o
 	$(CC) $^ -o $@
 
 test_conversion : test_conversion.o grille.o conversion_dimacs.o
+	@echo ""
+	@echo "---------------------------------------------"
+	@echo "Creation de l'executable "$@
+	@echo "---------------------------------------------"
+	$(CC) $^ -o $@
+
+main : main.o grille.o conversion_dimacs.o
 	@echo ""
 	@echo "---------------------------------------------"
 	@echo "Creation de l'executable "$@
