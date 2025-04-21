@@ -32,8 +32,14 @@ test_conversion.o : test_conversion.c grille.h conversion_dimacs.h
 	@echo "---------------------------------------------"
 	$(CC) -c $<
 
+jeu.o : jeu.c conversion_dimacs.h grille.h
+	@echo ""
+	@echo "---------------------------------------------"
+	@echo "Compilation du module jeu"
+	@echo "---------------------------------------------"
+	$(CC) -c $<
 
-main.o : main.c grille.h conversion_dimacs.h
+main.o : main.c jeu.h grille.h conversion_dimacs.h
 	@echo ""
 	@echo "---------------------------------------------"
 	@echo "Compilation du module main"
@@ -54,7 +60,7 @@ test_conversion : test_conversion.o grille.o conversion_dimacs.o
 	@echo "---------------------------------------------"
 	$(CC) $^ -o $@
 
-main : main.o grille.o conversion_dimacs.o
+main : main.o jeu.o grille.o conversion_dimacs.o
 	@echo ""
 	@echo "---------------------------------------------"
 	@echo "Creation de l'executable "$@
