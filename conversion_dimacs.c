@@ -310,6 +310,34 @@ int gestion_cond_lampe(int i,int j,Grille G, FILE *f){
     return cpt;
 }
 
+void gestion_cond_eclaire(int i,int j,Grille G, FILE *f){
+    int l,h,k;
+    l=G.l;
+    h=G.h;
+    fprintf(f,"-%d %d ",nom_variable_dimacs(i,j,l,ECLAIRE),nom_variable_dimacs(i,j,l,LAMPE));
+    k=i-1;
+    while (k>=0 && !est_mur(G,k,j)){
+        fprintf(f,"%d ",nom_variable_dimacs(k,j,l,LAMPE));
+        k--;
+    }
+    k=j-1;
+    while (k>=0 && !est_mur(G,i,k)){
+        fprintf(f,"%d ",nom_variable_dimacs(i,k,l,LAMPE));
+        k--;
+    }
+    k=j+1;
+    while (k<l && !est_mur(G,i,k)){
+        fprintf(f,"%d ",nom_variable_dimacs(i,k,l,LAMPE));
+        k++;
+    }
+    k=i+1;
+    while (k<h && !est_mur(G,k,j)){
+        fprintf(f,"%d ",nom_variable_dimacs(k,j,l,LAMPE));
+        k++;
+    }
+    fprintf (f,"0\n");
+}
+
 int ecriture_condition(FILE *f,Grille G){
 
     int i,j,l,h,cpt;
@@ -384,6 +412,9 @@ int ecriture_condition(FILE *f,Grille G){
                 cpt++;
                 // Gestion des condition sur la presence d'une lampe
                 cpt+=gestion_cond_lampe(i,j,G,f);
+                //Gestion de la condition sur l'éclairage d'une case
+                gestion_cond_eclaire(i,j,G,f);
+                cpt++;
                 break;
                 
             }

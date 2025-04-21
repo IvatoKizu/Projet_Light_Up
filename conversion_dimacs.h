@@ -18,6 +18,8 @@ int gestion_cond_MUR4(int i,int j,int l,int h,FILE *f);
 
 int gestion_cond_lampe(int i,int j,Grille G, FILE *f);
 
+void gestion_cond_eclaire(int i,int j,Grille G,FILE *f);
+
 int ecriture_condition(FILE *f, Grille G);
 
 void ecriture_dimacs(FILE *f, Grille G);
