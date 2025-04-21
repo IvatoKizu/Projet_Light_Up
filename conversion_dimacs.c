@@ -215,7 +215,8 @@ int gestion_cond_MUR2(int i,int j,int l,int h,FILE *f){
         fprintf(f,"%d %d %d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE),nom_variable_dimacs(i+1,j,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
         fprintf(f,"%d %d %d 0\n",nom_variable_dimacs(i-1,j,l,LAMPE),nom_variable_dimacs(i,j-1,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
         fprintf(f,"-%d -%d -%d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE),nom_variable_dimacs(i,j-1,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
-        return 7;
+        fprintf(f,"%d %d %d 0\n",nom_variable_dimacs(i+1,j,l,LAMPE),nom_variable_dimacs(i,j-1,l,LAMPE),nom_variable_dimacs(i,j+1,l,LAMPE));
+        return 8;
     }
 
 
