@@ -243,6 +243,38 @@ void gestion_cond_MUR4(int i,int j,int l,int h,FILE *f){
     
 }
 
+void gestion_cond_lampe(int i,int j,Grille G, FILE *f){
+    int l,h,k,n_variable_lampe_ij;
+    l=G.l;
+    h=G.h;
+    n_variable_lampe_ij=nom_variable_dimacs(i,j,l,LAMPE);
+    fprintf(f,"%d -%d 0\n",nom_variable_dimacs(i,j,l,ECLAIRE),n_variable_lampe_ij);
+    k=i-1;
+    while (k>=0 && !est_mur(G,k,j)){
+        fprintf(f,"-%d -%d 0\n",n_variable_lampe_ij,nom_variable_dimacs(k,j,l,LAMPE));
+        fprintf(f,"%d -%d 0\n",nom_variable_dimacs(k,j,l,ECLAIRE),n_variable_lampe_ij);
+        k--;
+    }
+    k=j-1;
+    while (k>=0 && !est_mur(G,i,k)){
+        fprintf(f,"-%d -%d 0\n",n_variable_lampe_ij,nom_variable_dimacs(i,k,l,LAMPE));
+        fprintf(f,"%d -%d 0\n",nom_variable_dimacs(i,k,l,ECLAIRE),n_variable_lampe_ij);
+        k--;
+    }
+    k=j+1;
+    while (k<l && !est_mur(G,i,k)){
+        fprintf(f,"-%d -%d 0\n",n_variable_lampe_ij,nom_variable_dimacs(i,k,l,LAMPE));
+        fprintf(f,"%d -%d 0\n",nom_variable_dimacs(i,k,l,ECLAIRE),n_variable_lampe_ij);
+        k++;
+    }
+    k=i+1;
+    while (k<h && !est_mur(G,k,j)){
+        fprintf(f,"-%d -%d 0\n",n_variable_lampe_ij,nom_variable_dimacs(k,j,l,LAMPE));
+        fprintf(f,"%d -%d 0\n",nom_variable_dimacs(k,j,l,ECLAIRE),n_variable_lampe_ij);
+        k++;
+    }
+}
+
 void ecriture_fich(FILE *f,Grille G){
 
     int i,j,l,h;
@@ -258,7 +290,9 @@ void ecriture_fich(FILE *f,Grille G){
             n_eclaire_ij=nom_variable_dimacs(i,j,l,ECLAIRE);
             n_lampe_ij=nom_variable_dimacs(i,j,l,LAMPE);
             n_mur_ij=nom_variable_dimacs(i,j,l,MUR);
+            //condition empechant d'avoir une lampen dans un mur 
             fprintf(f,"-%d -%d 0\n",n_lampe_ij,n_mur_ij);
+            //condition de victoire (toutes les cases sont éclairées sauf les murs)
             fprintf(f,"%d %d 0\n",n_eclaire_ij,n_mur_ij);
             switch(G.tab[i][j]){
 
@@ -305,8 +339,9 @@ void ecriture_fich(FILE *f,Grille G){
                 default:
                 //fixations des valeurs des variables sur les murs
                 fprintf(f,"-%d 0\n",n_mur_ij);
+                gestion_cond_lampe(i,j,G,f);
                 break;
-
+                
             }
             
         }

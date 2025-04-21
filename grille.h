@@ -34,6 +34,8 @@ Grille init_Grille(int longueur, int hauteur);
 
 Grille lire_Grille(FILE *f);
 
+int est_mur(Grille G,int i,int j);
+
 void afficher_Grille(Grille G);
 
 #endif 

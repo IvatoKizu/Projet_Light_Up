@@ -161,3 +161,8 @@ void afficher_Grille(Grille G){
     }
 
 }
+
+int est_mur(Grille G,int i,int j){
+    if (G.tab[i][j]==MUR || G.tab[i][j]==MUR_0 || G.tab[i][j]==MUR_1 || G.tab[i][j]==MUR_2 || G.tab[i][j]==MUR_3 || G.tab[i][j]==MUR_4) return 1;
+    else return 0;
+}
