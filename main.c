@@ -2,10 +2,23 @@
 #include "grille.h"
 #include "conversion_dimacs.h"
 
-int main(int argc,char* argv[]){
-    Grille grille;
+Grille start(){
+    int largeur, hauteur;
 
-    grille = init_Grille(5,5);
+    printf("Création de votre grille\n");
+    printf("Combien de ligne souhaitez-vous? ");
+    scanf("%d",&largeur);
+
+    printf("\nCombien de colonnes souhaitez-vous? ");
+    scanf("%d",&hauteur);
+    printf("\n");
+
+    return init_Grille(hauteur,largeur);
+}
+
+
+int main(int argc,char* argv[]){
+    Grille grille = start();
     afficher_Grille(grille);
 
     printf("test\n");
