@@ -44,7 +44,7 @@ int main(int argc,char* argv[]){
       return 1;
     }
     G = lire_Grille(f);
-    fclose(f);  // On a fait la lecture de la grille du fichier .txt, on peut donc fclose
+    fclose(f);  // On a fait la lecture de la grille du fichier .txt, on peut donc fclosesudo
     f = fopen(fich_dimacs,"w"); // On ouvre le fichier .cnf
     ecriture_dimacs(f,G); // le fclose(f); est dans la fonction
      
