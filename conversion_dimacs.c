@@ -403,15 +403,15 @@ void ecriture_dimacs(FILE *f, Grille G){
     tmp=fopen("condition_tmp.txt","w");
     nb_clause=ecriture_condition(tmp,G);
     fclose(tmp);
-    fopen("condition_tmp.txt","r");
-    fprintf("p cnf %d %d",G.h*G.l*3,nb_clause);
+    tmp = fopen("condition_tmp.txt","r");
+    fprintf(f,"p cnf %d %d\n",G.h*G.l*3,nb_clause);
     while(!feof(tmp)){
-        fscanf(tmp,"%c",c);
+        fscanf(tmp,"%c",&c);
         fprintf(f,"%c",c);
     }
     fclose(f);
     fclose(tmp);
-    remove(tmp);
+    remove("condition_tmp.txt");
 
 }
 
