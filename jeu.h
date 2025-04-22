@@ -16,4 +16,7 @@ Grille fin_partie(Grille G,char *nom_fichier);
 int resultat_correcte(Grille G, char *nom_fichier);
 
 void start(Grille grille, char *nom_fichier);
+
+int satisfaisabilite(Grille G); // Retourne 0 si satisfaisable
+
 #endif 
