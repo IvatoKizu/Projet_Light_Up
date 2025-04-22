@@ -212,9 +212,18 @@ int est_eclaire(Grille G, int i,int j){
 
 void afficher_Grille(Grille G){
 
-    int i,j,k;
-
-    printf("+");
+    int i,j,k,l;
+    printf("  ");
+    for(l = 1;l<=G.l;l++){
+        if(l<10){
+            printf("   %d",l);
+        }
+        else{
+            printf("  %d",l);
+        }
+    }
+    printf("\n");
+    printf("   +");
         for(k = 0;k<G.l;k++){
 
             printf("---+");
@@ -224,9 +233,12 @@ void afficher_Grille(Grille G){
     printf("\n");
 
     for(i = 0;i<G.h;i++){
-
-         printf("|");
-
+        if(i+1<10){
+            printf("%d  |",i+1);
+        }
+        else{
+            printf("%d |",i+1);
+        }
         for(j = 0;j<G.l;j++){
 
             switch(G.tab[i][j]){
@@ -271,7 +283,7 @@ void afficher_Grille(Grille G){
         }
 
         printf("\n");
-        printf("+");
+        printf("   +");
         for(k = 0;k<G.l;k++){
 
             printf("---+");
