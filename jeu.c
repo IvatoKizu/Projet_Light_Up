@@ -178,7 +178,8 @@ Grille fin_partie(Grille G,char *nom_fichier){
 
     f = fopen("output.txt","r");
     lecture_fich(f,G);
-
+    fclose(f);
+    remove("output.txt");
     return G;
 }
 
