@@ -122,6 +122,7 @@ Grille fin_partie(Grille G,char *nom_fichier){
     strcat(command,fin_executable);
     
     system(command);
+    remove(fich_dimacs);
 
     f = fopen("output.txt","r");
     lecture_fich(f,G);
@@ -175,4 +176,25 @@ void start(Grille grille, Grille solution){
         }
     }
     printf("retour vers le menu \n");
+}
+
+int satisfaisabilite(Grille G){
+
+    FILE *f;
+    char *fich_dimacs = "grille_alea.cnf";
+    char command[150] = "minisat ";
+    char *fin_executable = " output.txt > /dev/null";
+
+    f = fopen(fich_dimacs,"w"); // On ouvre le fichier .cnf
+    ecriture_dimacs(f,G); // le fclose(f); est dans la fonction
+     
+    strcat(command,fich_dimacs);
+    strcat(command,fin_executable);
+    
+    system(command);
+    remove(fich_dimacs);
+
+    f = fopen("output.txt","r");
+    return lecture_fich(f,G);
+
 }

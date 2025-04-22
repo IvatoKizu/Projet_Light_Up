@@ -342,14 +342,15 @@ Grille generation_grille_random(int longueur, int hauteur, int pourcentage_mur){
     return G;
 }
 
-Grille unique_sat_generation_grille_random(int longueur, int hauteur, int pourcentage_mur){
+Grille unique_sat_generation_grille_random(int longueur, int hauteur, int pourcentage_mur){ // pas fini
 
     Grille G;
+    int res;
     int k = 1;
 
     srand(time(NULL));
     G = generation_grille_random(longueur,hauteur,pourcentage_mur);
-    while(fin_partie(G,"grille_alea.txt")){
+    while(satisfaisabilite(G)){
         G = generation_grille_random(longueur,hauteur,pourcentage_mur);
         printf("k : %d\n",k);
         k++;

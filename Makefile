@@ -1,10 +1,10 @@
 CC = clang -g -Wall
 
-EXECUTABLES = test_grille test_conversion main
+EXECUTABLES = test_grille test_conversion main test_alea
 
 all : $(EXECUTABLES)
 
-grille.o : grille.c grille.h
+grille.o : grille.c grille.h jeu.h
 	@echo ""
 	@echo "---------------------------------------------"
 	@echo "Compilation du module grille"
@@ -25,14 +25,14 @@ conversion_dimacs.o : conversion_dimacs.c conversion_dimacs.h
 	@echo "---------------------------------------------"
 	$(CC) -c $<
 
-test_conversion.o : test_conversion.c grille.h conversion_dimacs.h
+test_conversion.o : test_conversion.c grille.h conversion_dimacs.h jeu.h
 	@echo ""
 	@echo "---------------------------------------------"
 	@echo "Compilation du module test_conversion"
 	@echo "---------------------------------------------"
 	$(CC) -c $<
 
-jeu.o : jeu.c conversion_dimacs.h grille.h
+jeu.o : jeu.c conversion_dimacs.h grille.h 
 	@echo ""
 	@echo "---------------------------------------------"
 	@echo "Compilation du module jeu"
@@ -46,14 +46,21 @@ main.o : main.c jeu.h grille.h conversion_dimacs.h
 	@echo "---------------------------------------------"
 	$(CC) -c $<
 
-test_grille : test_grille.o grille.o
+test_alea.o : test_alea.c jeu.h grille.h conversion_dimacs.h
+	@echo ""
+	@echo "---------------------------------------------"
+	@echo "Compilation du module test_alea"
+	@echo "---------------------------------------------"
+	$(CC) -c $<
+
+test_grille : test_grille.o grille.o jeu.o conversion_dimacs.o
 	@echo ""
 	@echo "---------------------------------------------"
 	@echo "Creation de l'executable "$@
 	@echo "---------------------------------------------"
 	$(CC) $^ -o $@
 
-test_conversion : test_conversion.o grille.o conversion_dimacs.o
+test_conversion : test_conversion.o grille.o conversion_dimacs.o jeu.o
 	@echo ""
 	@echo "---------------------------------------------"
 	@echo "Creation de l'executable "$@
@@ -61,6 +68,13 @@ test_conversion : test_conversion.o grille.o conversion_dimacs.o
 	$(CC) $^ -o $@
 
 main : main.o jeu.o grille.o conversion_dimacs.o
+	@echo ""
+	@echo "---------------------------------------------"
+	@echo "Creation de l'executable "$@
+	@echo "---------------------------------------------"
+	$(CC) $^ -o $@
+
+test_alea : test_alea.o jeu.o grille.o conversion_dimacs.o
 	@echo ""
 	@echo "---------------------------------------------"
 	@echo "Creation de l'executable "$@
