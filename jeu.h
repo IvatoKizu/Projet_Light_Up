@@ -11,6 +11,8 @@ Grille choix_fichier(char **nom_fichier);
 
 Grille jouer_coup(Grille G);
 
+int indice(Grille G, Grille solution);
+
 Grille fin_partie(Grille G,char *nom_fichier);
 
 int resultat_correcte(Grille G, Grille solution);

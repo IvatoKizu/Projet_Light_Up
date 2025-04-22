@@ -121,7 +121,32 @@ Grille jouer_coup(Grille G){
     return G;
 }
 
-
+int indice(Grille G, Grille solution){
+    int h,l,x,y;
+    x=-1;
+    h = G.h;
+    l = G.l;
+    for(int i=0; i<h; i++){
+        for(int j=0; j<l; j++){
+            if(G.tab[i][j]==LAMPE && solution.tab[i][j]!=LAMPE){
+                printf("Il y à une lampe qui n'est pas presente dans la solution sur la case (%d,%d) essayer de la supprimer et de recommencer.\n",j+1,i+1); 
+                return 0;
+            }
+            else if(solution.tab[i][j]==LAMPE && G.tab[i][j]!=LAMPE){
+                x=i;
+                y=j;
+            }
+        }
+    }
+    if (x==-1){
+        printf("Bravo vous avez gagnez vous avez deja la bonne soltuion.\n");
+        return 1;
+    }
+    else{
+        printf("Vous pouvez placer une lampe sur la case (%d,%d)\n",y+1,x+1);
+        return 0;
+    }
+}
 Grille fin_partie(Grille G,char *nom_fichier){
     FILE *f;
     char fich_dimacs[50];
@@ -181,16 +206,21 @@ void start(Grille grille, Grille solution){
         printf("Voici la nouvelle grille : \n");
         afficher_Grille(grille);
         
-        printf("Voulez-vous essayer ce résultats ? (Y/N) : ");
+        printf("Voulez-vous essayer ce résultats ? (Y/N) (Si vous êtes bloquer demander un indices en tampant H ) : ");
         scanf("\n"),
         scanf("%c",&retour_joueur);
-        while(retour_joueur!='Y' && retour_joueur!='N'){
+        while(retour_joueur!='Y' && retour_joueur!='N' && retour_joueur!='H'){
             printf("Valeur saisie incorrecte\n");
             printf("Voulez-vous essayer ce résultats ? (Y/N) : ");
             scanf("\n");
             scanf("%c",&retour_joueur);
         }
-        if( retour_joueur=='Y'){
+        if( retour_joueur=='H'){
+            if(indice(grille,solution)){
+                joue =0;
+            }  
+        }
+        else if( retour_joueur=='Y'){
             res = resultat_correcte(grille, solution);
             if(res == 1){
                 printf("Votre solution est correcte !\n");
