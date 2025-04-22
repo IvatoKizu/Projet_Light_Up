@@ -36,6 +36,10 @@ Grille lire_Grille(FILE *f);
 
 Grille ajouter_lampe(Grille G, int x, int y);
 
+void supprimer_lampe(Grille *G,int i,int j);
+
+int est_eclaire(Grille G, int i,int j);
+
 int est_libre(Grille G,int i,int j);
 
 int est_mur(Grille G,int i,int j);

@@ -2,6 +2,7 @@
 
 Grille jouer_coup(Grille G){
     int x, y, mauvaise_val=1; 
+    char retour_joueur;
     printf("Quelle case souhaitez-vous jouer? \n");
     scanf("%d %d",&y,&x);
     while(mauvaise_val){
@@ -9,7 +10,22 @@ Grille jouer_coup(Grille G){
             printf("Votre valeur n'est pas dans la grille \n");
             printf("Quelle case souhaitez-vous jouer? \n");
             scanf("%d %d",&y,&x);
-        }else if(!est_libre(G,x,y)){
+        }else if(G.tab[x][y]==LAMPE){
+            printf("Il y a déjà une lampe sur cette case voulez vous la supprimer ? (Y/N)\n");
+            scanf("\n");
+            scanf("%c",&retour_joueur);
+            if (retour_joueur=='Y'){
+                supprimer_lampe(&G,x,y);
+                printf("Voici la nouvelle grille : \n");
+                afficher_Grille(G);
+                return G;
+            }
+            else{
+            printf("Quelle case souhaitez-vous jouer? \n");
+            scanf("%d %d",&y,&x);
+            }
+        }
+        else if(!est_libre(G,x,y)){
             printf("Vous avez choisis une case deja prises.\n");
             printf("Quelle case souhaitez-vous jouer? \n");
             scanf("%d %d",&y,&x);
@@ -19,7 +35,7 @@ Grille jouer_coup(Grille G){
     }
 
     G = ajouter_lampe(G,x,y);
-    printf("Voici le nouvelle grille : \n");
+    printf("Voici la nouvelle grille : \n");
     afficher_Grille(G);
 
     return G;
@@ -72,10 +88,10 @@ void start(Grille grille, char *nom_fichier){
     afficher_Grille(grille);
     while(joue){
         jouer_coup(grille);
-
+        /*
         printf("Voulez-vous essayer ce résultats ? (Y/N) : ");
-        scanf("%s",&retour_joueur);
-        if(strcmp(&retour_joueur, "N")){
+        scanf("%s",&retour_joueur);*/
+        if( /*strcmp(&retour_joueur, "N")*/ 0 ){
             res = fin_partie(grille,nom_fichier);
 
             if(res == 0){
