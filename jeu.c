@@ -57,6 +57,7 @@ Grille choix_fichier(char **nom_fichier){
 
 Grille jouer_coup(Grille G){
     int x, y, mauvaise_val=1; 
+    char retour_joueur;
     printf("Quelle case souhaitez-vous jouer? \n");
     scanf("%d %d",&y,&x);
     while(mauvaise_val){
@@ -64,7 +65,23 @@ Grille jouer_coup(Grille G){
             printf("Votre valeur n'est pas dans la grille \n");
             printf("Quelle case souhaitez-vous jouer? \n");
             scanf("%d %d",&y,&x);
-        }else if(!est_libre(G,x,y)){
+        }else if(G.tab[x][y]==LAMPE){
+            printf("Il y a déjà une lampe sur cette case voulez vous la supprimer ? (Y/N)\n");
+            scanf("\n");
+            scanf("%c",&retour_joueur);
+            if (retour_joueur=='Y'){
+                supprimer_lampe(&G,x,y);
+                printf("Voici la nouvelle grille : \n");
+                afficher_Grille(G);
+                return G;
+            }
+            else{
+            printf("Quelle case souhaitez-vous jouer? \n");
+            scanf("%d %d",&y,&x);
+            }
+        }
+        else if(!est_libre(G,x,y)){
+            afficher_Grille(G);
             printf("Vous avez choisis une case deja prises.\n");
             printf("Quelle case souhaitez-vous jouer? \n");
             scanf("%d %d",&y,&x);
@@ -74,17 +91,14 @@ Grille jouer_coup(Grille G){
     }
 
     G = ajouter_lampe(G,x,y);
-    printf("Voici le nouvelle grille : \n");
-    afficher_Grille(G);
-
     return G;
 }
 
 
-int fin_partie(Grille G,char *nom_fichier){
+Grille fin_partie(Grille G,char *nom_fichier){
     FILE *f;
     char fich_dimacs[50];
-    int i,res;
+    int i;
     char command[150] = "minisat ";
     char *fin_executable = " output.txt";
 
@@ -108,34 +122,44 @@ int fin_partie(Grille G,char *nom_fichier){
     strcat(command,fin_executable);
     
     system(command);
-    remove(fich_dimacs);
 
     f = fopen("output.txt","r");
-    res = lecture_fich(f,G);
-    afficher_Grille(G);
+    lecture_fich(f,G);
 
-    if(res == 0){
-        return 0;
-    }else{
-        return 1;
-    }
+    return G;
 }
 
+int resultat_correcte(Grille G, char *nom_fichier){
+    Grille correcte = copie_Grille(G);
+    correcte = fin_partie(correcte, nom_fichier);
+    int h, l;
+    h = G.h;
+    l = G.l;
+
+    for(int i=0; i<h; i++){
+        for(int j=0; j<l; j++){
+            if(G.tab[i][j]!=correcte.tab[i][j]){
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
 void start(Grille grille, char *nom_fichier){
     int joue = 1, res;
     char retour_joueur;
-    printf("Vous jouez avec la grille suivante : \n");
-
-    afficher_Grille(grille);
     while(joue){
+        printf("Voici la grille : \n");
+        afficher_Grille(grille);
         jouer_coup(grille);
-
-        printf("Voulez-vous essayer ce résultat ? (Y/N) : ");
+        printf("Voici la nouvelle grille : \n");
+        afficher_Grille(grille);
+        
+        printf("Voulez-vous essayer ce résultats ? (Y/N) : ");
         scanf("%s",&retour_joueur);
-        if(strcmp(&retour_joueur, "N")){
-            res = fin_partie(grille,nom_fichier);
-
-            if(res == 0){
+        if( strcmp(&retour_joueur, "N")){
+            res = resultat_correcte(grille,nom_fichier);
+            if(res == 1){
                 printf("Votre solution est correcte !\n");
                 joue = 0;
             }else{
