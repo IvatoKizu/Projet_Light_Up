@@ -356,16 +356,15 @@ Grille generation_grille_random(int longueur, int hauteur, int pourcentage_mur){
 
 Grille unique_sat_generation_grille_random(int longueur, int hauteur, int pourcentage_mur){ // pas fini
 
-    Grille G;
-    int k = 1;
-
+    Grille G,G2;
+    
     srand(time(NULL));
     G = generation_grille_random(longueur,hauteur,pourcentage_mur);
-    while(satisfaisabilite(G)){
+    G2 = copie_Grille(G);
+    while(satisfaisabilite_unicite(G)){
         G = generation_grille_random(longueur,hauteur,pourcentage_mur);
-        printf("k : %d\n",k);
-        k++;
+        G2 = copie_Grille(G);
     }
 
-    return G;
+    return G2;
 }
