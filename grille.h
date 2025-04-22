@@ -34,18 +34,16 @@ Grille init_Grille(int longueur, int hauteur);
 
 Grille lire_Grille(FILE *f);
 
-Grille copie_Grille(Grille G);
-
 Grille ajouter_lampe(Grille G, int x, int y);
-
-void supprimer_lampe(Grille *G,int i,int j);
-
-int est_eclaire(Grille G, int i,int j);
 
 int est_libre(Grille G,int i,int j);
 
 int est_mur(Grille G,int i,int j);
 
 void afficher_Grille(Grille G);
+
+Grille generation_grille_random(int longueur, int hauteur, int pourcentage_mur);
+
+Grille unique_sat_generation_grille_random(int longueur, int hauteur, int pourcentage_mur);
 
 #endif 

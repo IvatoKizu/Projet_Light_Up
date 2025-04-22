@@ -1,5 +1,6 @@
 #include "grille.h"
 
+
 Grille init_Grille(int longueur, int hauteur){
 
     Grille G;
@@ -87,18 +88,6 @@ Grille lire_Grille(FILE *f){
 
 }
 
-Grille copie_Grille(Grille G){
-    Grille copie;
-    copie = init_Grille(G.l, G.h);
-
-    for(int i=0;i<G.h;i++){
-        for(int j=0; j<G.l; j++){
-            copie.tab[i][j] = G.tab[i][j];
-        }
-    }
-    return copie;
-}
-
 Grille ajouter_lampe(Grille G, int x, int y){
     int i, hauteur, largeur;
     largeur = G.l;
@@ -137,74 +126,6 @@ Grille ajouter_lampe(Grille G, int x, int y){
     G.tab = tab;
     return G;
 }
-
-void supprimer_lampe(Grille *G,int i,int j){
-    int l,h,k;
-    l=G->l;
-    h=G->h;
-    if (G->tab[i][j]!=LAMPE){
-        printf("Erreur il n'y as pas de lampe a suprrimer sur cette case\n");
-        return;
-    }
-    G->tab[i][j]=LIBRE;
-    k=i-1;
-    while (k>=0 && !est_mur(*G,k,j)){
-        if (!est_eclaire(*G,k,j)){
-            G->tab[k][j]=LIBRE;
-        }
-        k--;
-    }
-    k=j-1;
-    while (k>=0 && !est_mur(*G,i,k)){
-        if (!est_eclaire(*G,i,k)){
-            G->tab[i][k]=LIBRE;
-        }
-        k--;
-    }
-    k=j+1;
-    while (k<l && !est_mur(*G,i,k)){
-        if (!est_eclaire(*G,i,k)){
-            G->tab[i][k]=LIBRE;
-        }
-        k++;
-    }
-    k=i+1;
-    while (k<h && !est_mur(*G,k,j)){
-        if (!est_eclaire(*G,k,j)){
-            G->tab[k][j]=LIBRE;
-        }
-        k++;
-    }
-}
-
-int est_eclaire(Grille G, int i,int j){
-    int l,h,k;
-    l=G.l;
-    h=G.h;
-    k=i-1;
-    if (G.tab[i][j]==LAMPE) return 1;
-    while (k>=0 && !est_mur(G,k,j)){
-        if (G.tab[k][j]==LAMPE) return 1;
-        k--;
-    }
-    k=j-1;
-    while (k>=0 && !est_mur(G,i,k)){
-        if (G.tab[i][k]==LAMPE) return 1;
-        k--;
-    }
-    k=j+1;
-    while (k<l && !est_mur(G,i,k)){
-        if (G.tab[i][k]==LAMPE) return 1;
-        k++;
-    }
-    k=i+1;
-    while (k<h && !est_mur(G,k,j)){
-        if (G.tab[k][j]==LAMPE) return 1;
-        k++;
-    }
-    return 0;
-}
-
 
 void afficher_Grille(Grille G){
 
@@ -288,4 +209,67 @@ int est_libre(Grille G,int i,int j){
 int est_mur(Grille G,int i,int j){
     if (G.tab[i][j]==MUR || G.tab[i][j]==MUR_0 || G.tab[i][j]==MUR_1 || G.tab[i][j]==MUR_2 || G.tab[i][j]==MUR_3 || G.tab[i][j]==MUR_4) return 1;
     else return 0;
+}
+
+Grille generation_grille_random(int longueur, int hauteur, int pourcentage_mur){
+
+    Grille G;
+    int i,j,pourcentage;
+
+    G = init_Grille(longueur,hauteur);
+    for(i = 0;i<G.h;i++){
+
+       for(j = 0;j<G.l;j++){
+
+            pourcentage = rand() % 100 + 1;
+            if(pourcentage <= pourcentage_mur/2){
+                G.tab[i][j] = MUR;
+            }
+            else if(pourcentage <= pourcentage_mur/2 + pourcentage_mur/10){
+                G.tab[i][j] = MUR_0;
+            }
+            else if(pourcentage <= pourcentage_mur/2 + pourcentage_mur*2/10){
+                G.tab[i][j] = MUR_1;
+            }
+            else if(pourcentage <= pourcentage_mur/2 + pourcentage_mur*3/10){
+                G.tab[i][j] = MUR_2;
+            }
+            else if(pourcentage <= pourcentage_mur/2 + pourcentage_mur*4/10){
+                if((i == 0 && j == 0)||(i == 0 && j == G.l-1)||(i == G.h-1 && j == 0)||(i == G.h-1 && j == G.l-1)){
+                    G.tab[i][j] = MUR_2;
+                }
+                else{
+                    G.tab[i][j] = MUR_3;
+                }
+            }
+            else if(pourcentage <= pourcentage_mur){ // pourcentage_mur/2 + pourcentage_mur*5/10 = pourcentage_mur
+                if(i == 0 || i == G.h-1 || j == 0 || j == G.l-1){
+                    G.tab[i][j] = MUR_2;
+                }
+                else{
+                    G.tab[i][j] = MUR_4;
+                }
+            }
+            else{
+                G.tab[i][j] = LIBRE;
+            }
+       }
+
+    }
+    return G;
+}
+
+Grille unique_sat_generation_grille_random(int longueur, int hauteur, int pourcentage_mur){
+
+    Grille G;
+    int k = 1;
+
+    srand(time(NULL));
+    G = generation_grille_random(l,h,pourcentage_mur);
+    while(fin_partie(G,"grille_alea.txt")){
+        G = generation_grille_random(l,h,pourcentage_mur);
+        printf("k : %d\n",k);
+        k++;
+    }
+
 }
