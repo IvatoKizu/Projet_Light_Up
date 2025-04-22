@@ -54,8 +54,9 @@ int main(int argc, char* argv[]){
             printf("Placer des ampoules sur une grille pour que toutes les cases blanches soient eclairees.\n\n");
 
             printf("Regles :\n");
-            printf("1. Une ampoule eclaire dans les 4 directions (haut, bas, gauche, droite)\n");
-            printf("   jusqu'a rencontrer un mur (case noire).\n");
+            printf("1. Une ampoule (signe @) eclaire dans les 4 directions (haut, bas, gauche, droite)\n");
+            printf("   jusqu'a rencontrer un mur (signe # ou un chiffre).\n");
+            printf("   Les cases eclaires sont marquer par un .\n");
             printf("2. Aucune case blanche ne doit rester dans l'ombre.\n");
             printf("3. Deux ampoules ne peuvent pas s'eclairer mutuellement.\n");
             printf("4. Certaines cases noires portent un chiffre (de 0 a 4) :\n");
