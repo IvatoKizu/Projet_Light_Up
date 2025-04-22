@@ -293,7 +293,7 @@ int est_mur(Grille G,int i,int j){
     if (G.tab[i][j]==MUR || G.tab[i][j]==MUR_0 || G.tab[i][j]==MUR_1 || G.tab[i][j]==MUR_2 || G.tab[i][j]==MUR_3 || G.tab[i][j]==MUR_4) return 1;
     else return 0;
 }
-/*
+
 Grille generation_grille_random(int longueur, int hauteur, int pourcentage_mur){
 
     Grille G;
@@ -356,4 +356,4 @@ Grille unique_sat_generation_grille_random(int longueur, int hauteur, int pource
     }
 
     return G;
-}*/
+}
