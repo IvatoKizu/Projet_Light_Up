@@ -77,7 +77,6 @@ Grille choix_fichier(char **nom_fichier){
         fclose(f);
         break;
     case 10:
-        printf("en construction pour l'instant ce sera la grille_1.txt\n");
         int x,y;
         float pourcentage;
         printf("Combien de ligne souhaitez-vous?");
