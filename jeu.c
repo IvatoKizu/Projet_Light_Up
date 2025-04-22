@@ -195,7 +195,11 @@ int indice(Grille G, Grille solution){
     for(int i=0; i<h; i++){
         for(int j=0; j<l; j++){
             if(G.tab[i][j]==LAMPE && solution.tab[i][j]!=LAMPE){
-                printf("Il y à une lampe qui n'est pas presente dans la solution sur la case (%d,%d) essayer de la supprimer et de recommencer.\n",j+1,i+1); 
+                printf("=============================================================================\n");
+                printf("                                      INDICE : \n");
+                printf(" Il y à une lampe qui n'est pas presente dans la solution sur la case (%d,%d)\n",j+1,i+1);
+                printf("                 essayer de la supprimer et de recommencer.\n");
+                printf("=============================================================================\n");
                 return 0;
             }
             else if(solution.tab[i][j]==LAMPE && G.tab[i][j]!=LAMPE){

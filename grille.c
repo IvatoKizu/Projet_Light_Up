@@ -332,18 +332,18 @@ Grille generation_grille_random(int longueur, int hauteur, int pourcentage_mur){
         for(j = 0;j<G.l;j++){
             if(G.tab[i][j]==MUR){
                 pourcentage = rand() % 100 + 1;
-                if(pourcentage <= 60){
+                if(pourcentage <= 50){
                     G.tab[i][j]=MUR;
                 }
-                else if(pourcentage <= 70) {
+                else if(pourcentage <= 60) {
                     G.tab[i][j]=MUR_0;
                 }
                 else if(pourcentage <= 70 ){
                     if(est_libre(G,i-1,j) || est_libre(G,i+1,j) || est_libre(G,i,j-1) || est_libre(G,i,j+1)){
                         G.tab[i][j] = MUR_1;
+                    }
                 }
-                }
-                else if(pourcentage <= 80){
+                else if(pourcentage <= 0){
                     acc=0;
                     acc+=est_libre(G,i-1,j);
                     acc+=est_libre(G,i+1,j);
