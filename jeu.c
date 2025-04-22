@@ -128,7 +128,6 @@ Grille jouer_coup(Grille G, int *resultat){
     while(mauvaise_val){
         x=x-1;
         y=y-1;
-        // printf("x: %d y: %d\n",x,y);
         if(x==-2 || y ==-2){
             *resultat = -1;
             mauvaise_val = 0 ;
@@ -268,13 +267,13 @@ int resultat_correcte(Grille G, Grille solution){
     return 1;
 }
 void start(Grille grille, Grille solution){
-    int joue = 1, res, choix;
+    int joue = 1, res, choix=0;
     char retour_joueur;
     while(joue){
         printf("Voici la grille : \n");
         afficher_Grille(grille);
         jouer_coup(grille,&choix);
-        printf("choix : %d",choix);
+        printf("choix : %d\n",choix);
         printf("Voici la nouvelle grille : \n");
         afficher_Grille(grille);
 
