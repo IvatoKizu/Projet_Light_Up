@@ -354,7 +354,7 @@ Grille generation_grille_random(int longueur, int hauteur, int pourcentage_mur){
     return G;
 }
 
-Grille unique_sat_generation_grille_random(int longueur, int hauteur, int pourcentage_mur){ // pas fini
+Grille unique_sat_generation_grille_random(int longueur, int hauteur, int pourcentage_mur){ 
 
     Grille G,G2;
     
