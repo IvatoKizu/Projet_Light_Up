@@ -87,6 +87,18 @@ Grille lire_Grille(FILE *f){
 
 }
 
+Grille copie_Grille(Grille G){
+    Grille copie;
+    copie = init_Grille(G.l, G.h);
+
+    for(int i=0;i<G.h;i++){
+        for(int j=0; j<G.l; j++){
+            copie.tab[i][j] = G.tab[i][j];
+        }
+    }
+    return copie;
+}
+
 Grille ajouter_lampe(Grille G, int x, int y){
     int i, hauteur, largeur;
     largeur = G.l;

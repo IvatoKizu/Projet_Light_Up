@@ -34,6 +34,8 @@ Grille init_Grille(int longueur, int hauteur);
 
 Grille lire_Grille(FILE *f);
 
+Grille copie_Grille(Grille G);
+
 Grille ajouter_lampe(Grille G, int x, int y);
 
 void supprimer_lampe(Grille *G,int i,int j);
