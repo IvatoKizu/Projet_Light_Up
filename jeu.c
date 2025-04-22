@@ -323,16 +323,12 @@ int satisfaisabilite_unicite(Grille G){
     int res,variable_solution,nombre_var,nombre_clause;
     char c;
     char *fich_dimacs = "grille_alea.cnf";
-    char command[150] = "minisat ";
-    char *fin_executable = " output.txt > /dev/null";
+    char command[150] = "minisat grille_alea.cnf output.txt > /dev/null";
 
     G2 = copie_Grille(G);
 
     f = fopen(fich_dimacs,"w"); // On ouvre le fichier .cnf
     ecriture_dimacs(f,G); // le fclose(f); est dans la fonction
-     
-    strcat(command,fich_dimacs);
-    strcat(command,fin_executable);
     
     system(command);
     //remove(fich_dimacs);
@@ -363,17 +359,15 @@ int satisfaisabilite_unicite(Grille G){
         fprintf(h,"\n");
         fclose(h);
         fclose(g);
-        //system("cat grille_alea.cnf");
         system("cp temporaire.txt grille_alea.cnf");
         remove("temporaire.txt");
         // On vient de rajouter la negation de la solution dans le fichier .cnf On rappelle donc minisat pour verifier si la solution est unique ou non
         system(command);
-        //remove(fich_dimacs);
         f = fopen("output.txt","r");
         res = lecture_fich(f,G2);
         fclose(f);
-        remove(fich_dimacs);
-        if(!res){
+        //remove(fich_dimacs);
+        if(res == 1){
             return 0;
         }
         else{
