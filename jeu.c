@@ -254,12 +254,17 @@ void start(Grille grille, Grille solution){
     printf("retour vers le menu \n");
 }
 
-int satisfaisabilite(Grille G){
-
-    FILE *f;
+int satisfaisabilite_unicite(Grille G){
+    // Retourne 0 si une grille est satisfaisable et possède une unique solution
+    FILE *f,*g,*h;
+    Grille G2;
+    int res,variable_solution,nombre_var,nombre_clause;
+    char c;
     char *fich_dimacs = "grille_alea.cnf";
     char command[150] = "minisat ";
     char *fin_executable = " output.txt > /dev/null";
+
+    G2 = copie_Grille(G);
 
     f = fopen(fich_dimacs,"w"); // On ouvre le fichier .cnf
     ecriture_dimacs(f,G); // le fclose(f); est dans la fonction
@@ -268,9 +273,52 @@ int satisfaisabilite(Grille G){
     strcat(command,fin_executable);
     
     system(command);
-    remove(fich_dimacs);
+    //remove(fich_dimacs);
 
     f = fopen("output.txt","r");
-    return lecture_fich(f,G);
+    res = lecture_fich(f,G);
+    fclose(f);
+    if(res == 0){
+        g = fopen(fich_dimacs,"r");  // Ouvre le fichier en lecture puis en ecriture pour changer le nombre de clauses 
+        fscanf(g,"p cnf %d %d\n",&nombre_var,&nombre_clause);
+        h = fopen("temporaire.txt","w");
+        fprintf(h,"p cnf %d %d\n",nombre_var,nombre_clause+1);
+        while(!feof(g)){
+            fscanf(g,"%c",&c);
+            fprintf(h,"%c",c);
+        }
+        
+        // On vient de reecrire tout le fich_dimacs dans temporaire.txt
+        fclose(g);
+        f = fopen("output.txt","r");
+        fscanf(f,"SAT\n");
+        while(!feof(f)){
+
+            fscanf(f,"%d ",&variable_solution);
+            fprintf(h,"%d ",-variable_solution);
+
+        }
+        fprintf(h,"\n");
+        fclose(h);
+        fclose(g);
+        //system("cat grille_alea.cnf");
+        system("cp temporaire.txt grille_alea.cnf");
+        remove("temporaire.txt");
+        // On vient de rajouter la negation de la solution dans le fichier .cnf On rappelle donc minisat pour verifier si la solution est unique ou non
+        system(command);
+        //remove(fich_dimacs);
+        f = fopen("output.txt","r");
+        res = lecture_fich(f,G2);
+        fclose(f);
+        if(!res){
+            return 0;
+        }
+        else{
+            return 2;
+        }
+    }
+    else{
+        return 1;
+    }
 
 }
