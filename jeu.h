@@ -19,7 +19,7 @@ int resultat_correcte(Grille G, Grille solution);
 
 void start(Grille grille, Grille solution);
 
-int satisfaisabilite(Grille G); // Retourne 0 si satisfaisable
+int satisfaisabilite_unicite(Grille G); // Retourne 0 si satisfaisable et solution unique
 
 #endif 
 
