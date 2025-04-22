@@ -77,7 +77,7 @@ Grille choix_fichier(char **nom_fichier){
         fclose(f);
         break;
     case 10:
-        int x,y;
+        int x,y,bonne_valeur = 1;
         float pourcentage;
         printf("Combien de ligne souhaitez-vous?");
         scanf("%d",&y);
@@ -85,6 +85,22 @@ Grille choix_fichier(char **nom_fichier){
         scanf("%d",&x);
         printf("Quel pourcentage de mur voulez-vous?(entre 1 et 100)");
         scanf("%f",&pourcentage);
+
+        while(bonne_valeur){
+            if(y<0 || x<0){
+                printf("Le nombre de lignes et de colonnes doivent être positifs\n");
+                printf("Combien de ligne souhaitez-vous?");
+                scanf("%d",&y);
+                printf("Combien de colonne souhaitez-vous?");
+                scanf("%d",&x);
+            }else if(pourcentage>100 || pourcentage <1){
+                printf("Le pourcentage doit être entre 1 et 100 inclus\n");
+                printf("Quel pourcentage de mur voulez-vous?(entre 1 et 100)");
+                scanf("%f",&pourcentage);
+            }else{
+                bonne_valeur = 0;
+            }
+        }
 
         grille = unique_sat_generation_grille_random(x,y,pourcentage);
         *nom_fichier = "test/grille_alea.txt";
