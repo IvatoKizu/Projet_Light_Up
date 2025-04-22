@@ -356,9 +356,11 @@ int ecriture_condition(FILE *f,Grille G){
             n_mur_ij=nom_variable_dimacs(i,j,l,MUR);
             //condition empechant d'avoir une lampen dans un mur 
             fprintf(f,"-%d -%d 0\n",n_lampe_ij,n_mur_ij);
+            //condition empechant un mur d'etre elcairee
+            fprintf(f,"-%d -%d 0\n",n_eclaire_ij,n_mur_ij);
             //condition de victoire (toutes les cases sont éclairées sauf les murs)
             fprintf(f,"%d %d 0\n",n_eclaire_ij,n_mur_ij);
-            cpt+=2;
+            cpt+=3;
             switch(G.tab[i][j]){
 
                 case MUR:
