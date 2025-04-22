@@ -1,5 +1,60 @@
 #include "jeu.h"
 
+Grille choix_fichier(char **nom_fichier){
+    Grille grille;
+    int choix;
+    FILE *f;
+    printf("1.  grille 1\n2.  grille 7x7 facile \n3.  grille 7x7 Moyenne \n4.  grille 7x7 Difficile\n");
+    printf("5.  grille 10x10 facile \n6.  grille 10x10 Difficile\n");
+    printf("7.  grille 14x14 facile \n8.  grille 14x14 Moyenne \n9.  grille 14x14 Difficile\n");
+    printf("10. Grille aléatoire\n");
+    printf("Avec quelle grille souhaitez-vous jouer? (1/2/3/4/5/6/7/8/9/10): ");
+    scanf("%d",&choix);
+    
+    switch (choix)
+    {
+    case 1:
+        *nom_fichier = "test/grille_1.txt";
+        break;
+    case 2:
+        *nom_fichier = "test/grille_7x7_ez.txt";
+        break;
+    case 3:
+        *nom_fichier = "test/grille_7x7_tricky.txt";
+        break;
+    case 4:
+        *nom_fichier = "test/grille_7x7_hard.txt";
+        break;
+    case 5:
+        *nom_fichier = "test/grille_10x10_ez.txt";
+        break;
+    case 6:
+        *nom_fichier = "test/grille_10x10_tricky.txt";
+        break;
+    case 7:
+        *nom_fichier = "test/grille_14x14_ez.txt";
+        break;
+    case 8:
+        *nom_fichier = "test/grille_14x14_tricky.txt";
+        break;
+    case 9:
+        *nom_fichier = "test/grille_14x14_hard.txt";
+        break;
+    case 10:
+        printf("en construction pour l'instant ce sera la grille_1.txt\n");
+        *nom_fichier = "test/grille_1.txt";
+        break;
+    default:
+        break;
+    }
+
+    printf("Vous avez choisis le fichier: %s\n",*nom_fichier);
+    f = fopen(*nom_fichier,"r");
+    grille = lire_Grille(f);
+    fclose(f);
+    return grille;
+}
+
 Grille jouer_coup(Grille G){
     int x, y, mauvaise_val=1; 
     printf("Quelle case souhaitez-vous jouer? \n");
@@ -65,6 +120,7 @@ int fin_partie(Grille G,char *nom_fichier){
         return 1;
     }
 }
+
 void start(Grille grille, char *nom_fichier){
     int joue = 1, res;
     char retour_joueur;
