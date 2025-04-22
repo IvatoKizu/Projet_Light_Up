@@ -122,6 +122,7 @@ Grille fin_partie(Grille G,char *nom_fichier){
     strcat(command,fin_executable);
     
     system(command);
+    remove(fich_dimacs);
 
     f = fopen("output.txt","r");
     lecture_fich(f,G);
