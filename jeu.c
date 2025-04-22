@@ -15,43 +15,90 @@ Grille choix_fichier(char **nom_fichier){
     {
     case 1:
         *nom_fichier = "test/grille_1.txt";
+        printf("Vous avez choisis le fichier: %s\n",*nom_fichier);
+        f = fopen(*nom_fichier,"r");
+        grille = lire_Grille(f);
+        fclose(f);
         break;
     case 2:
         *nom_fichier = "test/grille_7x7_ez.txt";
+        printf("Vous avez choisis le fichier: %s\n",*nom_fichier);
+        f = fopen(*nom_fichier,"r");
+        grille = lire_Grille(f);
+        fclose(f);
         break;
     case 3:
         *nom_fichier = "test/grille_7x7_tricky.txt";
+        printf("Vous avez choisis le fichier: %s\n",*nom_fichier);
+        f = fopen(*nom_fichier,"r");
+        grille = lire_Grille(f);
+        fclose(f);
         break;
     case 4:
         *nom_fichier = "test/grille_7x7_hard.txt";
+        printf("Vous avez choisis le fichier: %s\n",*nom_fichier);
+        f = fopen(*nom_fichier,"r");
+        grille = lire_Grille(f);
+        fclose(f);
         break;
     case 5:
         *nom_fichier = "test/grille_10x10_ez.txt";
+        printf("Vous avez choisis le fichier: %s\n",*nom_fichier);
+        f = fopen(*nom_fichier,"r");
+        grille = lire_Grille(f);
+        fclose(f);
         break;
     case 6:
         *nom_fichier = "test/grille_10x10_tricky.txt";
+        printf("Vous avez choisis le fichier: %s\n",*nom_fichier);
+        f = fopen(*nom_fichier,"r");
+        grille = lire_Grille(f);
+        fclose(f);
         break;
     case 7:
         *nom_fichier = "test/grille_14x14_ez.txt";
+        printf("Vous avez choisis le fichier: %s\n",*nom_fichier);
+        f = fopen(*nom_fichier,"r");
+        grille = lire_Grille(f);
+        fclose(f);
         break;
     case 8:
         *nom_fichier = "test/grille_14x14_tricky.txt";
+        printf("Vous avez choisis le fichier: %s\n",*nom_fichier);
+        f = fopen(*nom_fichier,"r");
+        grille = lire_Grille(f);
+        fclose(f);
         break;
     case 9:
         *nom_fichier = "test/grille_14x14_hard.txt";
+        printf("Vous avez choisis le fichier: %s\n",*nom_fichier);
+        f = fopen(*nom_fichier,"r");
+        grille = lire_Grille(f);
+        fclose(f);
         break;
     case 10:
         printf("en construction pour l'instant ce sera la grille_1.txt\n");
-        *nom_fichier = "test/grille_1.txt";
+        int x,y;
+        float pourcentage;
+        printf("Combien de ligne souhaitez-vous?");
+        scanf("%d",&y);
+        printf("Combien de colonne souhaitez-vous?");
+        scanf("%d",&x);
+        printf("Quel pourcentage de mur voulez-vous?");
+        scanf("%f",&pourcentage);
+
+        if(pourcentage>= 1){
+            pourcentage = pourcentage /100.;
+        }
+        grille = unique_sat_generation_grille_random(x,y,pourcentage);
+        *nom_fichier = "test/grille_alea.txt";
         break;
     default:
+        grille = init_Grille(-1,-1);
         break;
     }
 
-    printf("Vous avez choisis le fichier: %s\n",*nom_fichier);
-    f = fopen(*nom_fichier,"r");
-    grille = lire_Grille(f);
-    fclose(f);
+
     return grille;
 }
 
