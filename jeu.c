@@ -179,7 +179,7 @@ Grille jouer_coup(Grille G, int *resultat){
             mauvaise_val = 0 ;
         }
     }
-    if(x>0){
+    if(x>=0){
         G = ajouter_lampe(G,x,y);
     }
     return G;
