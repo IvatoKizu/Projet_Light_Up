@@ -295,17 +295,19 @@ void start(Grille grille, Grille solution){
             }
             else{
                 printf("Votre solution est incorrecte.\n");
-                printf("Voulez-la modifier? (Y/N):");
+                printf("Voulez-la modifier? (Y/N) (N pour voir la solution):");
                 scanf("\n");
                 scanf("%s",&retour_joueur);
                 while(retour_joueur!='Y' && retour_joueur!='N'){
                     printf("Valeur saisie incorrecte\n");
                     printf("Votre solution est incorrecte.\n");
-                    printf("Voulez-la modifier? (Y/N):");
+                    printf("Voulez-la modifier? (Y/N) (N pour voir la solution):");
                     scanf("\n");
                     scanf("%c",&retour_joueur);
                 }
                 if(retour_joueur=='N'){
+                    printf("Voici la solution :\n");
+                    afficher_Grille(solution);
                     joue = 0;
                 }
                 else{
