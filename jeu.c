@@ -100,7 +100,7 @@ Grille fin_partie(Grille G,char *nom_fichier){
     char fich_dimacs[50];
     int i;
     char command[150] = "minisat ";
-    char *fin_executable = " output.txt";
+    char *fin_executable = " output.txt > /dev/null";
 
     // Création du fichier dimacs avec le nom du fichier grille mais en .cnf
     strcpy(fich_dimacs,nom_fichier);
@@ -129,23 +129,21 @@ Grille fin_partie(Grille G,char *nom_fichier){
     return G;
 }
 
-int resultat_correcte(Grille G, char *nom_fichier){
-    Grille correcte = copie_Grille(G);
-    correcte = fin_partie(correcte, nom_fichier);
+int resultat_correcte(Grille G, Grille solution){
     int h, l;
     h = G.h;
     l = G.l;
 
     for(int i=0; i<h; i++){
         for(int j=0; j<l; j++){
-            if(G.tab[i][j]!=correcte.tab[i][j]){
+            if(G.tab[i][j]!=solution.tab[i][j]){
                 return 0;
             }
         }
     }
     return 1;
 }
-void start(Grille grille, char *nom_fichier){
+void start(Grille grille, Grille solution){
     int joue = 1, res;
     char retour_joueur;
     while(joue){
@@ -158,7 +156,7 @@ void start(Grille grille, char *nom_fichier){
         printf("Voulez-vous essayer ce résultats ? (Y/N) : ");
         scanf("%s",&retour_joueur);
         if( strcmp(&retour_joueur, "N")){
-            res = resultat_correcte(grille,nom_fichier);
+            res = resultat_correcte(grille, solution);
             if(res == 1){
                 printf("Votre solution est correcte !\n");
                 joue = 0;

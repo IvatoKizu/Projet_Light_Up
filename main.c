@@ -6,6 +6,7 @@
 
 int main(int argc, char* argv[]){
     Grille grille, grille_sol;
+    int res;
     int jouer = 1, choix_mode;
     char *nom_fichier=NULL;
     printf("===================================\n");
@@ -16,12 +17,21 @@ int main(int argc, char* argv[]){
         printf("===================================\n");
         printf("1. Jouer\n2. Solutions\n3. Les règles\n4. Quitter\n");
         printf("Que souhaitez-vous faire ? (1/2/3/4) :");
-        scanf("%d",&choix_mode);
+        res = scanf("%d",&choix_mode);
+        while (res!=1){
+            printf("La valeur saisie est incorrecte veuillez choisir une des options suivantes:\n");
+            printf("1. Jouer\n2. Solutions\n3. Les règles\n4. Quitter\n");
+            scanf("%*s");
+            printf("Que souhaitez-vous faire ? (1/2/3/4) :");
+            res = scanf("%d",&choix_mode);
+        }
         switch (choix_mode)
         {
         case 1:    
             grille = choix_fichier(&nom_fichier);
-            start(grille, argv[1]);
+            grille_sol=copie_Grille(grille);
+            grille_sol=fin_partie(grille_sol,nom_fichier);
+            start(grille, grille_sol);
             break;
         case 2:
             printf("===================================\n");
