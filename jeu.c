@@ -67,7 +67,9 @@ Grille jouer_coup(Grille G){
         res=scanf("%d %d",&y,&x); 
     }
     while(mauvaise_val){
-        if((x>G.l) || (y>G.h) || (x<0) || (y<0)){
+        x=x-1;
+        y=y-1;
+        if((x>=G.l) || (y>=G.h) || (x<0) || (y<0)){
             printf("Votre valeur n'est pas dans la grille \n");
             printf("Quelle case souhaitez-vous jouer? \n");
             res=scanf("%d %d",&y,&x);
