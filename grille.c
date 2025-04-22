@@ -126,6 +126,74 @@ Grille ajouter_lampe(Grille G, int x, int y){
     return G;
 }
 
+void supprimer_lampe(Grille *G,int i,int j){
+    int l,h,k;
+    l=G->l;
+    h=G->h;
+    if (G->tab[i][j]!=LAMPE){
+        printf("Erreur il n'y as pas de lampe a suprrimer sur cette case\n");
+        return;
+    }
+    G->tab[i][j]=LIBRE;
+    k=i-1;
+    while (k>=0 && !est_mur(*G,k,j)){
+        if (!est_eclaire(*G,k,j)){
+            G->tab[k][j]=LIBRE;
+        }
+        k--;
+    }
+    k=j-1;
+    while (k>=0 && !est_mur(*G,i,k)){
+        if (!est_eclaire(*G,i,k)){
+            G->tab[i][k]=LIBRE;
+        }
+        k--;
+    }
+    k=j+1;
+    while (k<l && !est_mur(*G,i,k)){
+        if (!est_eclaire(*G,i,k)){
+            G->tab[i][k]=LIBRE;
+        }
+        k++;
+    }
+    k=i+1;
+    while (k<h && !est_mur(*G,k,j)){
+        if (!est_eclaire(*G,k,j)){
+            G->tab[k][j]=LIBRE;
+        }
+        k++;
+    }
+}
+
+int est_eclaire(Grille G, int i,int j){
+    int l,h,k;
+    l=G.l;
+    h=G.h;
+    k=i-1;
+    if (G.tab[i][j]==LAMPE) return 1;
+    while (k>=0 && !est_mur(G,k,j)){
+        if (G.tab[k][j]==LAMPE) return 1;
+        k--;
+    }
+    k=j-1;
+    while (k>=0 && !est_mur(G,i,k)){
+        if (G.tab[i][k]==LAMPE) return 1;
+        k--;
+    }
+    k=j+1;
+    while (k<l && !est_mur(G,i,k)){
+        if (G.tab[i][k]==LAMPE) return 1;
+        k++;
+    }
+    k=i+1;
+    while (k<h && !est_mur(G,k,j)){
+        if (G.tab[k][j]==LAMPE) return 1;
+        k++;
+    }
+    return 0;
+}
+
+
 void afficher_Grille(Grille G){
 
     int i,j,k;
