@@ -1,5 +1,61 @@
 #include "jeu.h"
 
+Grille choix_fichier(){
+    Grille grille;
+    int choix;
+    FILE *f;
+    printf("Avec quelle grille souhaitez-vous jouer? (1/2/3/4/5/6/7/8/9/10/11)\n");
+    printf("1.  grille 1\n2.  grille 7x7 facile \n3.  grille 7x7 Moyenne \n4.  grille 7x7 Difficile\n");
+    printf("5.  grille 10x10 facile \n6.  grille 10x10 Moyenne \n7.  grille 10x10 Difficile\n");
+    printf("8.  grille 14x14 facile \n9.  grille 14x14 Moyenne \n10. grille 14x14 Difficile\n");
+    printf("11. Grille aléatoire\n");
+    scanf("%d",&choix);
+    
+    switch (choix)
+    {
+    case 1:
+        f = fopen("test/grille_1.txt","r");
+        break;
+    case 2:
+        f = fopen("test/grille_1.txt","r");
+        break;
+    case 3:
+        f = fopen("test/grille_1.txt","r");
+        break;
+    case 4:
+        f = fopen("test/grille_1.txt","r");
+        break;
+    case 5:
+        f = fopen("test/grille_1.txt","r");
+        break;
+    case 6:
+        f = fopen("test/grille_1.txt","r");
+        break;
+    case 7:
+        f = fopen("test/grille_1.txt","r");
+        break;
+    case 8:
+        f = fopen("test/grille_1.txt","r");
+        break;
+    case 9:
+        f = fopen("test/grille_1.txt","r");
+        break;
+        case 1:
+        f = fopen("test/grille_1.txt","r");
+        break;
+    case 10:
+        f = fopen("test/grille_1.txt","r");
+        break;
+    case 11:
+        f = fopen("test/grille_1.txt","r");
+        break;
+    default:
+        break;
+    }
+    grille = lire_Grille(f);
+    return grille;
+}
+
 Grille jouer_coup(Grille G){
     int x, y, mauvaise_val=1; 
     char retour_joueur;

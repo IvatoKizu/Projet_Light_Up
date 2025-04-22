@@ -5,8 +5,7 @@
 
 
 int main(int argc, char* argv[]){
-    FILE *f;
-    Grille grille;
+    Grille grille, grille_sol;
     int jouer = 1, choix_mode;
     if(argc!=2){
 
@@ -14,13 +13,6 @@ int main(int argc, char* argv[]){
         return 1;
     }
 
-
-    f = fopen(argv[1],"r");
-    if(f == NULL){
-
-        printf("ERREUR : Fichier non existant\n");
-        return 1;
-    }
     printf("===================================\n");
     printf("\nBienvenue dans le jeu Light Up\n\n");
     printf("===================================\n");
@@ -31,13 +23,18 @@ int main(int argc, char* argv[]){
         switch (choix_mode)
         {
         case 1:    
-            grille = lire_Grille(f);
-            fclose(f);
+            grille = choix_fichier();
             start(grille, argv[1]);
             break;
         case 2:
             printf("===================================\n");
-            printf("en construction\n");
+            grille = choix_fichier();
+            grille_sol = copie_Grille(grille);
+            grille_sol = fin_partie(grille_sol, argv[1]);
+            printf("La grille vide est : \n");
+            afficher_Grille(grille);
+            printf("La solution est : \n");
+            afficher_Grille(grille_sol);
             printf("===================================\n");
             break;  
         case 3:
