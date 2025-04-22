@@ -368,9 +368,8 @@ int satisfaisabilite_unicite(Grille G){
         f = fopen("output.txt","r");
         res = lecture_fich(f,G2);
         fclose(f);
-        //remove(fich_dimacs);
         if(res == 1){
-
+            remove(fich_dimacs);
             return 0;
         }
         else{
