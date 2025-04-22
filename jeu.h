@@ -7,7 +7,7 @@
 #include "grille.h"
 #include "conversion_dimacs.h"
 
-Grille choix_fichier();
+Grille choix_fichier(char **nom_fichier);
 
 Grille jouer_coup(Grille G);
 

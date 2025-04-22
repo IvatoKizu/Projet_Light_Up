@@ -7,12 +7,7 @@
 int main(int argc, char* argv[]){
     Grille grille, grille_sol;
     int jouer = 1, choix_mode;
-    if(argc!=2){
-
-        printf("Exemple d'utilisation : ./test_grille <fichier_grille>\n");
-        return 1;
-    }
-
+    char *nom_fichier=NULL;
     printf("===================================\n");
     printf("\nBienvenue dans le jeu Light Up\n\n");
     printf("===================================\n");
@@ -23,14 +18,15 @@ int main(int argc, char* argv[]){
         switch (choix_mode)
         {
         case 1:    
-            grille = choix_fichier();
+            grille = choix_fichier(&nom_fichier);
             start(grille, argv[1]);
             break;
         case 2:
             printf("===================================\n");
-            grille = choix_fichier();
+            grille = choix_fichier(&nom_fichier);
+            printf("%s\n",nom_fichier);
             grille_sol = copie_Grille(grille);
-            grille_sol = fin_partie(grille_sol, argv[1]);
+            grille_sol = fin_partie(grille_sol, nom_fichier);
             printf("La grille vide est : \n");
             afficher_Grille(grille);
             printf("La solution est : \n");
