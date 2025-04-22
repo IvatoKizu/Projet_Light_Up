@@ -114,10 +114,10 @@ Grille choix_fichier(char **nom_fichier){
     return grille;
 }
 
-Grille jouer_coup(Grille G){
+Grille jouer_coup(Grille G, int *resultat){
     int x, y, res,mauvaise_val=1; 
     char retour_joueur;
-    printf("Quelle case souhaitez-vous jouer? \n");
+    printf("Quelle case souhaitez-vous jouer? (-1 pour un indice et -2 pour vérifier votre solution)\n");
     res=scanf("%d %d",&y,&x);
     if(res!=2){
         printf("Saisi incorrecte veuillez saisir les coordonnée x et y \n");
@@ -128,7 +128,14 @@ Grille jouer_coup(Grille G){
     while(mauvaise_val){
         x=x-1;
         y=y-1;
-        if((x>=G.h) || (y>=G.l) || (x<0) || (y<0)){
+        // printf("x: %d y: %d\n",x,y);
+        if(x==-2 || y ==-2){
+            *resultat = -1;
+            mauvaise_val = 0 ;
+        }else if(x==-3 || y ==-3){
+            *resultat = -2;
+            mauvaise_val = 0 ;
+        }else if((x>=G.h) || (y>=G.l) || (x<0) || (y<0)){
             printf("Votre valeur n'est pas dans la grille \n");
             printf("Quelle case souhaitez-vous jouer? \n");
             res=scanf("%d %d",&y,&x);
@@ -149,17 +156,16 @@ Grille jouer_coup(Grille G){
                 return G;
             }
             else{
-            printf("Quelle case souhaitez-vous jouer? \n");
-            res=scanf("%d %d",&y,&x);
-            if(res!=2){
-                printf("Saisi incorrecte veuillez saisir les coordonnée x et y \n");
                 printf("Quelle case souhaitez-vous jouer? \n");
-                scanf("%*s");
-                res=scanf("%d %d",&y,&x); 
+                res=scanf("%d %d",&y,&x);
+                if(res!=2){
+                    printf("Saisi incorrecte veuillez saisir les coordonnée x et y \n");
+                    printf("Quelle case souhaitez-vous jouer? \n");
+                    scanf("%*s");
+                    res=scanf("%d %d",&y,&x); 
+                }
             }
-            }
-        }
-        else if(!est_libre(G,x,y)){
+        }else if(!est_libre(G,x,y)){
             afficher_Grille(G);
             printf("Vous avez choisis une case deja prise.\n");
             printf("Quelle case souhaitez-vous jouer? \n");
@@ -174,8 +180,9 @@ Grille jouer_coup(Grille G){
             mauvaise_val = 0 ;
         }
     }
-
-    G = ajouter_lampe(G,x,y);
+    if(x>0){
+        G = ajouter_lampe(G,x,y);
+    }
     return G;
 }
 
@@ -201,10 +208,15 @@ int indice(Grille G, Grille solution){
         return 1;
     }
     else{
-        printf("Vous pouvez placer une lampe sur la case (%d,%d)\n",y+1,x+1);
+        printf("=================================================================\n");
+        printf("                            INDICE : \n");
+        printf("        Vous pouvez placer une lampe sur la case (%d,%d)\n",y+1,x+1);
+        printf("=================================================================\n");
+
         return 0;
     }
 }
+
 Grille fin_partie(Grille G,char *nom_fichier){
     FILE *f;
     char fich_dimacs[50];
@@ -256,30 +268,21 @@ int resultat_correcte(Grille G, Grille solution){
     return 1;
 }
 void start(Grille grille, Grille solution){
-    int joue = 1, res;
+    int joue = 1, res, choix;
     char retour_joueur;
     while(joue){
         printf("Voici la grille : \n");
         afficher_Grille(grille);
-        jouer_coup(grille);
+        jouer_coup(grille,&choix);
+        printf("choix : %d",choix);
         printf("Voici la nouvelle grille : \n");
         afficher_Grille(grille);
-        
-        printf("Voulez-vous essayer ce résultats ? (Y/N) (Si vous êtes bloquer demander un indices en tampant H ) : ");
-        scanf("\n"),
-        scanf("%c",&retour_joueur);
-        while(retour_joueur!='Y' && retour_joueur!='N' && retour_joueur!='H'){
-            printf("Valeur saisie incorrecte\n");
-            printf("Voulez-vous essayer ce résultats ? (Y/N) : ");
-            scanf("\n");
-            scanf("%c",&retour_joueur);
-        }
-        if( retour_joueur=='H'){
+
+        if( choix== -1){
             if(indice(grille,solution)){
                 joue =0;
             }  
-        }
-        else if( retour_joueur=='Y'){
+        }else if( choix== -2){
             res = resultat_correcte(grille, solution);
             if(res == 1){
                 printf("Votre solution est correcte !\n");

@@ -9,7 +9,7 @@
 
 Grille choix_fichier(char **nom_fichier);
 
-Grille jouer_coup(Grille G);
+Grille jouer_coup(Grille G, int *resultat);
 
 int indice(Grille G, Grille solution);
 
