@@ -180,23 +180,41 @@ void start(Grille grille, Grille solution){
         afficher_Grille(grille);
         
         printf("Voulez-vous essayer ce résultats ? (Y/N) : ");
-        scanf("%s",&retour_joueur);
-        if( strcmp(&retour_joueur, "N")){
+        scanf("\n"),
+        scanf("%c",&retour_joueur);
+        while(retour_joueur!='Y' && retour_joueur!='N'){
+            printf("Valeur saisie incorrecte\n");
+            printf("Voulez-vous essayer ce résultats ? (Y/N) : ");
+            scanf("\n");
+            scanf("%c",&retour_joueur);
+        }
+        if( retour_joueur=='Y'){
             res = resultat_correcte(grille, solution);
             if(res == 1){
                 printf("Votre solution est correcte !\n");
                 joue = 0;
-            }else{
+            }
+            else{
                 printf("Votre solution est incorrecte.\n");
                 printf("Voulez-la modifier? (Y/N):");
+                scanf("\n");
                 scanf("%s",&retour_joueur);
-                if(strcmp(&retour_joueur, "Y")){
+                while(retour_joueur!='Y' && retour_joueur!='N'){
+                    printf("Valeur saisie incorrecte\n");
+                    printf("Votre solution est incorrecte.\n");
+                    printf("Voulez-la modifier? (Y/N):");
+                    scanf("\n");
+                    scanf("%c",&retour_joueur);
+                }
+                if(retour_joueur=='N'){
                     joue = 0;
-                }else{
+                }
+                else{
                     joue = 1;
                 }
             }
-        }else{
+        }
+        else{
             joue = 1;
         }
     }
