@@ -8,7 +8,7 @@ int main(int argc,char* argv[]){
     FILE *f;
     Grille G;
     char fich_dimacs[50];
-    int i,res;
+    int i;
     char command[150] = "minisat ";
     char *fin_executable = " output.txt";
 
@@ -54,7 +54,7 @@ int main(int argc,char* argv[]){
     system(command);
 
     f = fopen("output.txt","r");
-    res = lecture_fich(f,G);
+    lecture_fich(f,G);
     afficher_Grille(G);
 
     return 0;

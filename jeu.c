@@ -26,7 +26,7 @@ Grille jouer_coup(Grille G){
             }
         }
         else if(!est_libre(G,x,y)){
-            afficher_grille(G);
+            afficher_Grille(G);
             printf("Vous avez choisis une case deja prises.\n");
             printf("Quelle case souhaitez-vous jouer? \n");
             scanf("%d %d",&y,&x);

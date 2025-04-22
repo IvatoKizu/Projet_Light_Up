@@ -6,7 +6,7 @@
 
 int main(int argc, char* argv[]){
     FILE *f;
-    char retour_joueur;
+    Grille grille;
     int jouer = 1, choix_mode;
     if(argc!=2){
 
@@ -31,7 +31,7 @@ int main(int argc, char* argv[]){
         switch (choix_mode)
         {
         case 1:    
-            Grille grille = lire_Grille(f);
+            grille = lire_Grille(f);
             fclose(f);
             start(grille, argv[1]);
             break;
