@@ -56,15 +56,28 @@ Grille choix_fichier(char **nom_fichier){
 }
 
 Grille jouer_coup(Grille G){
-    int x, y, mauvaise_val=1; 
+    int x, y, res,mauvaise_val=1; 
     char retour_joueur;
     printf("Quelle case souhaitez-vous jouer? \n");
-    scanf("%d %d",&y,&x);
+    res=scanf("%d %d",&y,&x);
+    if(res!=2){
+        printf("Saisi incorrecte veuillez saisir les coordonnée x et y \n");
+        printf("Quelle case souhaitez-vous jouer? \n");
+        scanf("%*s");
+        res=scanf("%d %d",&y,&x); 
+    }
     while(mauvaise_val){
         if((x>G.l) || (y>G.h) || (x<0) || (y<0)){
             printf("Votre valeur n'est pas dans la grille \n");
             printf("Quelle case souhaitez-vous jouer? \n");
-            scanf("%d %d",&y,&x);
+            res=scanf("%d %d",&y,&x);
+            if(res!=2){
+                printf("Saisi incorrecte veuillez saisir les coordonnée x et y \n");
+                printf("Quelle case souhaitez-vous jouer? \n");
+                scanf("%*s");
+                res=scanf("%d %d",&y,&x); 
+                printf("skkqgqlsfh\n");
+            }
         }else if(G.tab[x][y]==LAMPE){
             printf("Il y a déjà une lampe sur cette case voulez vous la supprimer ? (Y/N)\n");
             scanf("\n");
@@ -77,14 +90,26 @@ Grille jouer_coup(Grille G){
             }
             else{
             printf("Quelle case souhaitez-vous jouer? \n");
-            scanf("%d %d",&y,&x);
+            res=scanf("%d %d",&y,&x);
+            if(res!=2){
+                printf("Saisi incorrecte veuillez saisir les coordonnée x et y \n");
+                printf("Quelle case souhaitez-vous jouer? \n");
+                scanf("%*s");
+                res=scanf("%d %d",&y,&x); 
+            }
             }
         }
         else if(!est_libre(G,x,y)){
             afficher_Grille(G);
             printf("Vous avez choisis une case deja prises.\n");
             printf("Quelle case souhaitez-vous jouer? \n");
-            scanf("%d %d",&y,&x);
+            res=scanf("%d %d",&y,&x);
+            if(res!=2){
+                printf("Saisi incorrecte veuillez saisir les coordonnée x et y \n");
+                printf("Quelle case souhaitez-vous jouer? \n");
+                scanf("%*s");
+                res=scanf("%d %d",&y,&x); 
+            }
         }else{
             mauvaise_val = 0 ;
         }
