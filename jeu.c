@@ -3,6 +3,8 @@
 Grille choix_fichier(char **nom_fichier){
     Grille grille;
     int choix;
+    float pourcentage;
+    int x,y,bonne_valeur = 1;
     FILE *f;
     printf("1.  grille 1\n2.  grille 7x7 facile \n3.  grille 7x7 Moyenne \n4.  grille 7x7 Difficile\n");
     printf("5.  grille 10x10 facile \n6.  grille 10x10 Difficile\n");
@@ -77,8 +79,6 @@ Grille choix_fichier(char **nom_fichier){
         fclose(f);
         break;
     case 10:
-        int x,y,bonne_valeur = 1;
-        float pourcentage;
         printf("Combien de ligne souhaitez-vous?");
         scanf("%d",&y);
         printf("Combien de colonne souhaitez-vous?");
