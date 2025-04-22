@@ -198,7 +198,7 @@ int indice(Grille G, Grille solution){
         }
     }
     if (x==-1){
-        printf("Bravo vous avez gagnez vous avez deja la bonne soltuion.\n");
+        printf("Bravo vous avez gagnez vous avez deja la bonne solution.\n");
         return 1;
     }
     else{
