@@ -12,8 +12,10 @@ int main(int argc, char* argv[]){
     printf("\nBienvenue dans le jeu Light Up\n\n");
     printf("===================================\n");
     while(jouer){
-        printf("Que souhaitez-vous faire ? (1/2/3/4)\n");
+        printf("Menu Principal:\n");
+        printf("===================================\n");
         printf("1. Jouer\n2. Solutions\n3. Les règles\n4. Quitter\n");
+        printf("Que souhaitez-vous faire ? (1/2/3/4) :");
         scanf("%d",&choix_mode);
         switch (choix_mode)
         {
@@ -63,7 +65,11 @@ int main(int argc, char* argv[]){
             printf("===================================\n");
             printf("Au revoir !\n");
             printf("===================================\n");
+            break;
         default:
+            printf("\nVeuillez rentrez uniquement une des valeurs suivants: 1 2 3 4 \n");
+            printf("===================================\n");
+            jouer = 1;
             break;
         }
     }

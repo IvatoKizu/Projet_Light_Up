@@ -4,11 +4,11 @@ Grille choix_fichier(char **nom_fichier){
     Grille grille;
     int choix;
     FILE *f;
-    printf("Avec quelle grille souhaitez-vous jouer? (1/2/3/4/5/6/7/8/9/10)\n");
     printf("1.  grille 1\n2.  grille 7x7 facile \n3.  grille 7x7 Moyenne \n4.  grille 7x7 Difficile\n");
     printf("5.  grille 10x10 facile \n6.  grille 10x10 Difficile\n");
     printf("7.  grille 14x14 facile \n8.  grille 14x14 Moyenne \n9.  grille 14x14 Difficile\n");
     printf("10. Grille aléatoire\n");
+    printf("Avec quelle grille souhaitez-vous jouer? (1/2/3/4/5/6/7/8/9/10):");
     scanf("%d",&choix);
     
     switch (choix)
@@ -74,10 +74,9 @@ Grille jouer_coup(Grille G){
                 printf("Voici la nouvelle grille : \n");
                 afficher_Grille(G);
                 return G;
-            }
-            else{
-            printf("Quelle case souhaitez-vous jouer? \n");
-            scanf("%d %d",&y,&x);
+            }else{
+                printf("Quelle case souhaitez-vous jouer? \n");
+                scanf("%d %d",&y,&x);
             }
         }
         else if(!est_libre(G,x,y)){
