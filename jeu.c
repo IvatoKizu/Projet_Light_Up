@@ -128,7 +128,7 @@ Grille jouer_coup(Grille G){
     while(mauvaise_val){
         x=x-1;
         y=y-1;
-        if((x>=G.l) || (y>=G.h) || (x<0) || (y<0)){
+        if((x>=G.h) || (y>=G.l) || (x<0) || (y<0)){
             printf("Votre valeur n'est pas dans la grille \n");
             printf("Quelle case souhaitez-vous jouer? \n");
             res=scanf("%d %d",&y,&x);
@@ -137,7 +137,6 @@ Grille jouer_coup(Grille G){
                 printf("Quelle case souhaitez-vous jouer? \n");
                 scanf("%*s");
                 res=scanf("%d %d",&y,&x); 
-                printf("skkqgqlsfh\n");
             }
         }else if(G.tab[x][y]==LAMPE){
             printf("Il y a déjà une lampe sur cette case voulez vous la supprimer ? (Y/N)\n");
