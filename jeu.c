@@ -351,10 +351,8 @@ int satisfaisabilite_unicite(Grille G){
         f = fopen("output.txt","r");
         fscanf(f,"SAT\n");
         while(!feof(f)){
-
             fscanf(f,"%d ",&variable_solution);
             fprintf(h,"%d ",-variable_solution);
-
         }
         fprintf(h,"\n");
         fclose(h);
@@ -368,6 +366,7 @@ int satisfaisabilite_unicite(Grille G){
         fclose(f);
         //remove(fich_dimacs);
         if(res == 1){
+
             return 0;
         }
         else{

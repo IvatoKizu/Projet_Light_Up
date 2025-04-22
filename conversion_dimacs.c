@@ -366,13 +366,15 @@ int ecriture_condition(FILE *f,Grille G){
                 case MUR:
                 //fixations des valeurs des variables sur les murs
                 fprintf(f,"%d 0\n",n_mur_ij);
-                cpt++;
+                fprintf(f,"-%d 0\n",n_eclaire_ij);
+                cpt+=2;
                 break;
 
                 case MUR_0:
                 //fixations des valeurs des variables sur les murs
                 fprintf(f,"%d 0\n",n_mur_ij);
-                cpt++;
+                fprintf(f,"-%d 0\n",n_eclaire_ij);
+                cpt+=2;
                 // Gestion des mur avec conditions
                 cpt+=gestion_cond_MUR0(i,j,l,h,f);
                 break;
@@ -380,7 +382,8 @@ int ecriture_condition(FILE *f,Grille G){
                 case MUR_1:
                 //fixations des valeurs des variables sur les murs
                 fprintf(f,"%d 0\n",n_mur_ij);
-                cpt++;
+                fprintf(f,"-%d 0\n",n_eclaire_ij);
+                cpt+=2;
                 // Gestion des mur avec conditions
                 cpt+=gestion_cond_MUR1(i,j,l,h,f);
                 break;
@@ -388,7 +391,8 @@ int ecriture_condition(FILE *f,Grille G){
                 case MUR_2:
                 //fixations des valeurs des variables sur les murs
                 fprintf(f,"%d 0\n",n_mur_ij);
-                cpt++;
+                fprintf(f,"-%d 0\n",n_eclaire_ij);
+                cpt+=2;
                 // Gestion des mur avec conditions
                 cpt+=gestion_cond_MUR2(i,j,l,h,f);
                 break;
@@ -396,7 +400,8 @@ int ecriture_condition(FILE *f,Grille G){
                 case MUR_3:
                 //fixations des valeurs des variables sur les murs
                 fprintf(f,"%d 0\n",n_mur_ij);
-                cpt++;
+                fprintf(f,"-%d 0\n",n_eclaire_ij);
+                cpt+=2;
                 // Gestion des mur avec conditions
                 cpt+=gestion_cond_MUR3(i,j,l,h,f);
                 break;
@@ -404,7 +409,8 @@ int ecriture_condition(FILE *f,Grille G){
                 case MUR_4:
                 //fixations des valeurs des variables sur les murs
                 fprintf(f,"%d 0\n",n_mur_ij);
-                cpt++;
+                fprintf(f,"-%d 0\n",n_eclaire_ij);
+                cpt+=2;
                 // Gestion des mur avec conditions
                 cpt+=gestion_cond_MUR4(i,j,l,h,f);
                 break;

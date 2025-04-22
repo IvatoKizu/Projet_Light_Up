@@ -297,6 +297,7 @@ void afficher_Grille(Grille G){
 }
 
 int est_libre(Grille G,int i,int j){
+    if ((i>=G.h) || (j>=G.l) || (i<0) || (j<0)) return 0;
     if (G.tab[i][j]== LIBRE) return 1;
     else return 0;
 }
@@ -309,7 +310,7 @@ int est_mur(Grille G,int i,int j){
 Grille generation_grille_random(int longueur, int hauteur, int pourcentage_mur){
 
     Grille G;
-    int i,j,pourcentage;
+    int i,j,pourcentage,acc;
 
     G = init_Grille(longueur,hauteur);
     for(i = 0;i<G.h;i++){
@@ -317,33 +318,8 @@ Grille generation_grille_random(int longueur, int hauteur, int pourcentage_mur){
        for(j = 0;j<G.l;j++){
 
             pourcentage = rand() % 100 + 1;
-            if(pourcentage <= pourcentage_mur/2){
+            if(pourcentage <= pourcentage_mur){
                 G.tab[i][j] = MUR;
-            }
-            else if(pourcentage <= pourcentage_mur/2 + pourcentage_mur/10){
-                G.tab[i][j] = MUR_0;
-            }
-            else if(pourcentage <= pourcentage_mur/2 + pourcentage_mur*2/10){
-                G.tab[i][j] = MUR_1;
-            }
-            else if(pourcentage <= pourcentage_mur/2 + pourcentage_mur*3/10){
-                G.tab[i][j] = MUR_2;
-            }
-            else if(pourcentage <= pourcentage_mur/2 + pourcentage_mur*4/10){
-                if((i == 0 && j == 0)||(i == 0 && j == G.l-1)||(i == G.h-1 && j == 0)||(i == G.h-1 && j == G.l-1)){
-                    G.tab[i][j] = MUR_2;
-                }
-                else{
-                    G.tab[i][j] = MUR_3;
-                }
-            }
-            else if(pourcentage <= pourcentage_mur){ // pourcentage_mur/2 + pourcentage_mur*5/10 = pourcentage_mur
-                if(i == 0 || i == G.h-1 || j == 0 || j == G.l-1){
-                    G.tab[i][j] = MUR_2;
-                }
-                else{
-                    G.tab[i][j] = MUR_4;
-                }
             }
             else{
                 G.tab[i][j] = LIBRE;
@@ -351,6 +327,56 @@ Grille generation_grille_random(int longueur, int hauteur, int pourcentage_mur){
        }
 
     }
+    for(i = 0;i<G.h;i++){
+
+        for(j = 0;j<G.l;j++){
+            if(G.tab[i][j]==MUR){
+                pourcentage = rand() % 100 + 1;
+                if(pourcentage <= 60){
+                    G.tab[i][j]=MUR;
+                }
+                else if(pourcentage <= 70) {
+                    G.tab[i][j]=MUR_0;
+                }
+                else if(pourcentage <= 70 ){
+                    if(est_libre(G,i-1,j) || est_libre(G,i+1,j) || est_libre(G,i,j-1) || est_libre(G,i,j+1)){
+                        G.tab[i][j] = MUR_1;
+                }
+                }
+                else if(pourcentage <= 80){
+                    acc=0;
+                    acc+=est_libre(G,i-1,j);
+                    acc+=est_libre(G,i+1,j);
+                    acc+=est_libre(G,i,j+1);
+                    acc+=est_libre(G,i,j-1);
+                    if(acc>=2){
+                    G.tab[i][j] = MUR_2;
+                    }
+                }
+                else if(pourcentage <= 90){
+                    acc=0;
+                    acc+=est_libre(G,i-1,j);
+                    acc+=est_libre(G,i+1,j);
+                    acc+=est_libre(G,i,j+1);
+                    acc+=est_libre(G,i,j-1);
+                    if(acc>=3){
+                        G.tab[i][j] = MUR_3;
+                    }
+                }
+                else {
+                    acc=0;
+                    acc+=est_libre(G,i-1,j);
+                    acc+=est_libre(G,i+1,j);
+                    acc+=est_libre(G,i,j+1);
+                    acc+=est_libre(G,i,j-1);
+                    if(acc==4){
+                        G.tab[i][j] = MUR_4;
+                    }
+                }
+            }
+        }
+ 
+     }
     return G;
 }
 
