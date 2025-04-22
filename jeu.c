@@ -2,7 +2,7 @@
 
 Grille choix_fichier(char **nom_fichier){
     Grille grille;
-    int choix;
+    int choix,c;
     float pourcentage;
     int x,y,bonne_valeur = 1;
     FILE *f;
@@ -97,6 +97,8 @@ Grille choix_fichier(char **nom_fichier){
                 printf("Le pourcentage doit être entre 1 et 100 inclus\n");
                 printf("Quel pourcentage de mur voulez-vous?(entre 1 et 100)");
                 scanf("%f",&pourcentage);
+                while ((c = getchar()) != '\n' && c != EOF);    // Permet de vider le cache du scanf pour ne pas boucler à l'infini dans le cas des lettres
+
             }else{
                 bonne_valeur = 0;
             }
