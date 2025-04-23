@@ -44,11 +44,11 @@ Grille lire_Grille(FILE *f){
                 G.tab[i][j] = LIBRE;
                 break;
 
-                case 'L' : // A enlever, là pour les tests d'affichage
+                case 'L' : // Uniquement utile pour les tests d'affichage
                 G.tab[i][j] = LAMPE;
                 break;
 
-                case '*' : // A enlever, là pour les tests d'affichage
+                case '*' : // Uniquement utile pour les tests d'affichage
                 G.tab[i][j] = ECLAIRE;
                 break;
 
