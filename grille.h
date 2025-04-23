@@ -52,6 +52,6 @@ Grille generation_grille_random(int longueur, int hauteur, int pourcentage_mur);
 
 Grille unique_sat_generation_grille_random(int longueur, int hauteur, int pourcentage_mur);
 
-void supprime_Grille(Grille G);
+void supprime_Grille(Grille G);    // Free le tableau contenu dans la Grille G
 
 #endif 
