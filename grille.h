@@ -30,26 +30,43 @@ typedef struct {
 
 } Grille;
 
+/*  prends en paramètre la longueur et la largeur
+    renvoi une grille avec les valeurs l et h inialisées 
+    et un tableau de la taille correspondantes au valeurs non-initialisées*/
 Grille init_Grille(int longueur, int hauteur);
 
+/*  prends en paramètre un pointeur de fichier terrain
+    renvoie la grille correspondantes*/
 Grille lire_Grille(FILE *f);
 
+/*  renvoie une copie de la grille en paramètre.*/
 Grille copie_Grille(Grille G);
 
+/*  ajoute une lampe sur la grille G à la case x,y pris en paramètre
+    effectue les modification nécessaire sur les case éclairés.*/
 Grille ajouter_lampe(Grille G, int x, int y);
 
+/*  supprime une lampe sur la grille G à la case i,j pris en paramètre
+    effectue les modification nécessaire sur les case éclairés.*/
 void supprimer_lampe(Grille *G,int i,int j);
  
+/*  Verifie si la case i,j est éclairé par une lampe.
+    renvoi 1 si la case est éclairé 0 sinon*/
 int est_eclaire(Grille G, int i,int j); 
 
+/*  Verifie que la case i,j soit libre.*/
 int est_libre(Grille G,int i,int j);
 
+/*  Verifie que la case i,j soit un mur (peut importe le type de mur).*/
 int est_mur(Grille G,int i,int j);
 
+/*  affiche la grille G à l'écran.*/
 void afficher_Grille(Grille G);
 
+/*  génère une grille de longeur et largeur voulu avec un pourcentage de mur proche de celui fournit en paramètre.*/
 Grille generation_grille_random(int longueur, int hauteur, int pourcentage_mur);
 
+/*  génère une grille qui à une unique solution.*/
 Grille unique_sat_generation_grille_random(int longueur, int hauteur, int pourcentage_mur);
 
 void supprime_Grille(Grille G);    // Free le tableau contenu dans la Grille G
