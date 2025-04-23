@@ -1,6 +1,6 @@
 CC = clang -g -Wall
 
-EXECUTABLES = test_grille test_conversion main test_alea
+EXECUTABLES = test_grille test_conversion main test_alea test_unicite_terrain
 
 all : $(EXECUTABLES)
 
@@ -46,6 +46,14 @@ main.o : main.c jeu.h grille.h conversion_dimacs.h
 	@echo "---------------------------------------------"
 	$(CC) -c $<
 
+
+test_unicite_terrain.o : test_unicite_terrain.c jeu.h grille.h conversion_dimacs.h
+	@echo ""
+	@echo "---------------------------------------------"
+	@echo "Compilation du module test_unicite_terrain"
+	@echo "---------------------------------------------"
+	$(CC) -c $<
+
 test_alea.o : test_alea.c jeu.h grille.h conversion_dimacs.h
 	@echo ""
 	@echo "---------------------------------------------"
@@ -75,6 +83,14 @@ main : main.o jeu.o grille.o conversion_dimacs.o
 	$(CC) $^ -o $@
 
 test_alea : test_alea.o jeu.o grille.o conversion_dimacs.o
+	@echo ""
+	@echo "---------------------------------------------"
+	@echo "Creation de l'executable "$@
+	@echo "---------------------------------------------"
+	$(CC) $^ -o $@
+
+
+test_unicite_terrain : test_unicite_terrain.o jeu.o grille.o conversion_dimacs.o
 	@echo ""
 	@echo "---------------------------------------------"
 	@echo "Creation de l'executable "$@
