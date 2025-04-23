@@ -388,9 +388,24 @@ Grille unique_sat_generation_grille_random(int longueur, int hauteur, int pource
     G = generation_grille_random(longueur,hauteur,pourcentage_mur);
     G2 = copie_Grille(G);
     while(satisfaisabilite_unicite(G)){
+        supprime_Grille(G);
+        supprime_Grille(G2);
         G = generation_grille_random(longueur,hauteur,pourcentage_mur);
         G2 = copie_Grille(G);
     }
-
+    supprime_Grille(G);
     return G2;
+}
+
+void supprime_Grille(Grille G){
+
+    int i;
+    
+    for(i = 0;i<G.h; i++){
+
+        free(G.tab[i]);
+
+    }
+    free(G.tab);
+
 }
