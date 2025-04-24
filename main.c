@@ -16,13 +16,13 @@ int main(int argc, char* argv[]){
         printf("Menu Principal:\n");
         printf("===================================\n");
         printf("1. Jouer\n2. Solutions\n3. Les règles\n4. Quitter\n");
-        printf("Que souhaitez-vous faire ? (1/2/3/4) :");
+        printf("Que souhaitez-vous faire ? (1/2/3/4) : ");
         res = scanf("%d",&choix_mode);
         while (res!=1){
             printf("La valeur saisie est incorrecte veuillez choisir une des options suivantes:\n");
             printf("1. Jouer\n2. Solutions\n3. Les règles\n4. Quitter\n");
             scanf("%*s");
-            printf("Que souhaitez-vous faire ? (1/2/3/4) :");
+            printf("Que souhaitez-vous faire ? (1/2/3/4) : ");
             res = scanf("%d",&choix_mode);
         }
         switch (choix_mode)

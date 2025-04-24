@@ -79,11 +79,11 @@ Grille choix_fichier(char **nom_fichier){
         fclose(f);
         break;
     case 10:
-        printf("Combien de ligne souhaitez-vous?");
+        printf("Combien de ligne souhaitez-vous? ");
         scanf("%d",&y);
-        printf("Combien de colonne souhaitez-vous?");
+        printf("Combien de colonne souhaitez-vous? ");
         scanf("%d",&x);
-        printf("Quel pourcentage de mur voulez-vous?(entre 1 et 100)");
+        printf("Quel pourcentage de mur voulez-vous?(entre 1 et 100) ");
         scanf("%f",&pourcentage);
 
         while(bonne_valeur){
@@ -117,37 +117,59 @@ Grille choix_fichier(char **nom_fichier){
 }
 
 Grille jouer_coup(Grille G, int *resultat){
-    int x, y, res,mauvaise_val=1; 
+    int x, y, res1, res2,mauvaise_val=1; 
     char retour_joueur;
-    printf("Quelle case souhaitez-vous jouer? (-1 pour un indice et -2 pour vérifier votre solution)\n");
-    res=scanf("%d %d",&y,&x);
-    if(res!=2){
+    printf("Quelle case souhaitez-vous jouer? (-1 pour un indice et -2 pour vérifier votre solution) \n");
+    res1=scanf("%d",&y);
+
+    if(y==-1){
+        *resultat = -1;
+        return G;
+    }else if(y ==-2){
+        *resultat = -2;
+        return G;
+    } 
+    res2=scanf("%d",&x);
+    if(res1!=1 || res2!=1){
         printf("Saisi incorrecte veuillez saisir les coordonnée x et y \n");
-        printf("Quelle case souhaitez-vous jouer? \n");
+        printf("Quelle case souhaitez-vous jouer? (-1 pour un indice et -2 pour vérifier votre solution) \n");
         scanf("%*s");
-        res=scanf("%d %d",&y,&x); 
+        res1=scanf("%d",&y);
+        if(y==-1){
+            *resultat = -1;
+            return G;
+        }else if(y ==-2){
+            *resultat = -2;
+            return G;
+        } 
+        res2=scanf("%d",&x);
     }
+
+
     while(mauvaise_val){
         x=x-1;
         y=y-1;
-        if(x==-2 || y ==-2){
-            *resultat = -1;
-            mauvaise_val = 0 ;
-        }else if(x==-3 || y ==-3){
-            *resultat = -2;
-            mauvaise_val = 0 ;
-        }else if((x>=G.h) || (y>=G.l) || (x<0) || (y<0)){
+        if((x>=G.h) || (y>=G.l) || (x<0) || (y<0)){
             printf("Votre valeur n'est pas dans la grille \n");
-            printf("Quelle case souhaitez-vous jouer? \n");
-            res=scanf("%d %d",&y,&x);
-            if(res!=2){
+            printf("Quelle case souhaitez-vous jouer? (-1 pour un indice et -2 pour vérifier votre solution) \n");
+            res1=scanf("%d",&y);
+            res2=scanf("%d",&x);
+            if(res1!=1 || res2!=1){
                 printf("Saisi incorrecte veuillez saisir les coordonnée x et y \n");
-                printf("Quelle case souhaitez-vous jouer? \n");
+                printf("Quelle case souhaitez-vous jouer? (-1 pour un indice et -2 pour vérifier votre solution) \n");
                 scanf("%*s");
-                res=scanf("%d %d",&y,&x); 
+                res1=scanf("%d",&y);
+                if(y==-1){
+                    *resultat = -1;
+                    return G;
+                }else if(y ==-2){
+                    *resultat = -2;
+                    return G;
+                } 
+                res2=scanf("%d",&x);
             }
         }else if(G.tab[x][y]==LAMPE){
-            printf("Il y a déjà une lampe sur cette case voulez vous la supprimer ? (Y/N)\n");
+            printf("Il y a déjà une lampe sur cette case voulez vous la supprimer ? (Y/N) \n");
             scanf("\n");
             scanf("%c",&retour_joueur);
             if (retour_joueur=='Y'){
@@ -155,27 +177,45 @@ Grille jouer_coup(Grille G, int *resultat){
                 printf("Voici la nouvelle grille : \n");
                 afficher_Grille(G);
                 return G;
-            }
-            else{
-                printf("Quelle case souhaitez-vous jouer? \n");
-                res=scanf("%d %d",&y,&x);
-                if(res!=2){
+            }else{
+                printf("Votre valeur n'est pas dans la grille \n");
+                printf("Quelle case souhaitez-vous jouer? (-1 pour un indice et -2 pour vérifier votre solution)\n");
+                res1=scanf("%d",&y);
+                res2=scanf("%d",&x);
+                if(res1!=1 || res2!=1){
                     printf("Saisi incorrecte veuillez saisir les coordonnée x et y \n");
-                    printf("Quelle case souhaitez-vous jouer? \n");
+                    printf("Quelle case souhaitez-vous jouer? (-1 pour un indice et -2 pour vérifier votre solution)\n");
                     scanf("%*s");
-                    res=scanf("%d %d",&y,&x); 
+                    res1=scanf("%d",&y);
+                    if(y==-1){
+                        *resultat = -1;
+                        return G;
+                    }else if(y ==-2){
+                        *resultat = -2;
+                        return G;
+                    } 
+                    res2=scanf("%d",&x);
                 }
             }
         }else if(!est_libre(G,x,y)){
             afficher_Grille(G);
-            printf("Vous avez choisis une case deja prise.\n");
-            printf("Quelle case souhaitez-vous jouer? \n");
-            res=scanf("%d %d",&y,&x);
-            if(res!=2){
+            printf("Votre valeur n'est pas dans la grille \n");
+            printf("Quelle case souhaitez-vous jouer? (-1 pour un indice et -2 pour vérifier votre solution) \n");
+            res1=scanf("%d",&y);
+            res2=scanf("%d",&x);
+            if(res1!=1 || res2!=1){
                 printf("Saisi incorrecte veuillez saisir les coordonnée x et y \n");
-                printf("Quelle case souhaitez-vous jouer? \n");
+                printf("Quelle case souhaitez-vous jouer? (-1 pour un indice et -2 pour vérifier votre solution) \n");
                 scanf("%*s");
-                res=scanf("%d %d",&y,&x); 
+                res1=scanf("%d",&y);
+                if(y==-1){
+                    *resultat = -1;
+                    return G;
+                }else if(y ==-2){
+                    *resultat = -2;
+                    return G;
+                } 
+                res2=scanf("%d",&x);
             }
         }else{
             mauvaise_val = 0 ;
@@ -295,18 +335,18 @@ void start(Grille grille, Grille solution){
             }
             else{
                 printf("Votre solution est incorrecte.\n");
-                printf("Voulez-la modifier? (Y/N) (N pour voir la solution):");
+                printf("Voulez-la modifier? (Y/N) (N pour voir la solution): ");
                 scanf("\n");
                 scanf("%s",&retour_joueur);
                 while(retour_joueur!='Y' && retour_joueur!='N'){
                     printf("Valeur saisie incorrecte\n");
                     printf("Votre solution est incorrecte.\n");
-                    printf("Voulez-la modifier? (Y/N) (N pour voir la solution):");
+                    printf("Voulez-la modifier? (Y/N) (N pour voir la solution): ");
                     scanf("\n");
                     scanf("%c",&retour_joueur);
                 }
                 if(retour_joueur=='N'){
-                    printf("Voici la solution :\n");
+                    printf("Voici la solution : \n");
                     afficher_Grille(solution);
                     joue = 0;
                 }
