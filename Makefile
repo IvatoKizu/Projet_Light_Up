@@ -1,6 +1,6 @@
 CC = clang -g -Wall
 
-EXECUTABLES = test_grille test_conversion main test_alea test_unicite_terrain
+EXECUTABLES = main
 
 all : $(EXECUTABLES)
 
@@ -78,9 +78,9 @@ test_conversion : test_conversion.o grille.o conversion_dimacs.o jeu.o
 main : main.o jeu.o grille.o conversion_dimacs.o
 	@echo ""
 	@echo "---------------------------------------------"
-	@echo "Creation de l'executable "$@
+	@echo "Creation de l'executable Light_Up"
 	@echo "---------------------------------------------"
-	$(CC) $^ -o $@
+	$(CC) $^ -o Light_Up
 
 test_alea : test_alea.o jeu.o grille.o conversion_dimacs.o
 	@echo ""
