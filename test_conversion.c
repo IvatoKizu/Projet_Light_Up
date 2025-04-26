@@ -10,7 +10,7 @@ int main(int argc,char* argv[]){
     char fich_dimacs[50];
     int i;
     char command[150] = "minisat ";
-    char *fin_executable = " output.txt";
+    char *fin_executable = " output.txt > /dev/null";
 
     // Verif de la bonne utilisation du programme
     if(argc!=2){
@@ -44,7 +44,7 @@ int main(int argc,char* argv[]){
       return 1;
     }
     G = lire_Grille(f);
-    fclose(f);  // On a fait la lecture de la grille du fichier .txt, on peut donc fclosesudo
+    fclose(f);  // On a fait la lecture de la grille du fichier .txt, on peut donc fclose
     f = fopen(fich_dimacs,"w"); // On ouvre le fichier .cnf
     ecriture_dimacs(f,G); // le fclose(f); est dans la fonction
      
