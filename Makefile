@@ -98,4 +98,4 @@ test_unicite_terrain : test_unicite_terrain.o jeu.o grille.o conversion_dimacs.o
 	$(CC) $^ -o $@
 
 clean:
-	rm -fR $(EXECUTABLES) *.o
+	rm -fR $(EXECUTABLES) Light_Up *.o
