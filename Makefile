@@ -1,6 +1,6 @@
 CC = clang -g -Wall
 
-EXECUTABLES = main
+EXECUTABLES = main test_conversion
 
 all : $(EXECUTABLES)
 
